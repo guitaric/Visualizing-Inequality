@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1595245391706.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "FCB1A6B",
+    "lastKnownWriteTime" : 1595244595,
+    "last_content_update" : 1595244595,
+    "path" : "C:/Users/Taric Lallai/Desktop/Project VI/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+        "cursorPosition" : "604,1",
+        "scrollLine" : "588"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

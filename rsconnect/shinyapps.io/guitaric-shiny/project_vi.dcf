@@ -1,0 +1,10 @@
+name: project_vi
+title:
+username:
+account: guitaric-shiny
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2592412
+bundleId: 3411823
+url: https://guitaric-shiny.shinyapps.io/project_vi/
+when: 1595244670.18424
