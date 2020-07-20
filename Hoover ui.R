@@ -25,6 +25,7 @@ hooverpage <-
       column(width = 1),
       column(width = 4, 
              wellPanel(style = "background: white",
+                       tags$hr(),
                        h4(tags$b("Set the Capital")),
                        sliderInput("hoo1", "First Person's Capital", min = 0, max = 10000, step = 250, value = 10000),
                        sliderInput("hoo2", "Second Person's Capital", min = 0, max = 10000, step = 250, value = 5000),

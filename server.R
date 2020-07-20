@@ -46,6 +46,7 @@ source('Documentation ui.R')
 
 
 #-----------------------------------------
+#source('Gini server.R')
 
 
 
@@ -57,19 +58,19 @@ server <-
     
     
  ############################################################ Index Page
+ 
+    #-------------------------------gini index
     
-  #-------------------------------gini index
-  
-  gini_slider <- reactive({ c(input$sli1, input$sli2 , input$sli3, input$sli4, input$sli5) })
-
-  output$slider_out1 <- renderPlot(gggini1(gini_slider()))
-  output$slider_out2 <- renderPlot(gggini2(gini_slider()))
-  output$slider_out3 <- renderPlot(gggini3(gini_slider()))
-  
-  output$gini_index <- renderValueBox({ valueBox( round(gini(gini_slider()), 3), "Gini Index", color = 'yellow' ) })
-output$corrgini_index <- renderValueBox({ valueBox( round(gini(gini_slider(), corr = T), 3), "Corrected Gini Index", color = 'yellow' ) })
-
-
+    gini_slider <- reactive({ c(input$sli1, input$sli2 , input$sli3, input$sli4, input$sli5) })
+    
+    output$slider_out1 <- renderPlot(gggini1(gini_slider()))
+    output$slider_out2 <- renderPlot(gggini2(gini_slider()))
+    output$slider_out3 <- renderPlot(gggini3(gini_slider()))
+    
+    output$gini_index <- renderValueBox({ valueBox( round(gini(gini_slider()), 3), "Gini Index", color = 'yellow' ) })
+    output$corrgini_index <- renderValueBox({ valueBox( round(gini(gini_slider(), corr = T), 3), "Corrected Gini Index", color = 'yellow' ) })
+    
+    
   #-------------------------------hoover index
 
   hoover_slider <- reactive({ c(input$hoo1, input$hoo2 , input$hoo3, input$hoo4, input$hoo5) })
@@ -390,49 +391,38 @@ output$corrgini_index <- renderValueBox({ valueBox( round(gini(gini_slider(), co
 
   # ------------------------------------all plots that are used for the Calc Page
   output$calccumulup <- renderPlot({
-    if(is.null(data())){return ()}
-    else(
+        req(input$file)
         gggini1calc(calc_vec())
-    )
   })
 
   output$calccumuldown <- renderPlot({
-    if(is.null(data())){return ()}
-    else(
+      req(input$file)
       ggrosenbluth1calc(calc_vec())
-    )
   })
 
   output$calcgini <- renderPlot({
-    if(is.null(data())){return ()}
-    else(
-        gggini3calc(calc_vec())
-    )
+      req(input$file)
+      gggini3calc(calc_vec())
   })
 
   output$calchoover <- renderPlot({
-    if(is.null(data())){return ()}
-    else(
+      req(input$file)
       gghoovercalc(calc_vec())
-    )
   })
 
   output$calcrosenbluth <- renderPlot({
-    if(is.null(data())){return ()}
-    else(
+      req(input$file)
       ggrosenbluth3calc(calc_vec())
-    )
   })
 
   output$calchhi <- renderPlot({
-    if(is.null(data())){return ()}
-    else(
+      req(input$file)
       ggherfindahlcalc(calc_vec())
-    )
   })
 
   #connection to actionbutton
   output$calcratio <- renderPlot({
+    req(input$file)
     input$actioncalc
     isolate(ggratiocalc(calc_vec(), input$bottomcalc, input$topcalc))
   })
@@ -467,138 +457,89 @@ output$corrgini_index <- renderValueBox({ valueBox( round(gini(gini_slider(), co
 
 
 #--------------------------------------------------------Metrics
-  output$metrics_gini <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      gini(calc_vec())
-    )
-  })
-
-  output$metrics_hoover <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      hoover(calc_vec())
-    )
-  })
-
-  output$metrics_ros <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      rosenbluth(calc_vec())
-    )
-  })
-
-  output$metrics_hhi <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      hhi(calc_vec())
-    )
-  })
-
-
-  output$metrics_palma <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      palma(calc_vec())
-    )
-  })
-
-  output$metrics_quint <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      quintile(calc_vec())
-    )
-  })
-
-  output$metrics_dec <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      decile(calc_vec())
-    )
-  })
-
-  output$metrics_own <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      ownratio(calc_vec(), input$bottomcalc, input$topcalc)
-    )
-  })
-
-
-
-  output$metrics_gei <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      gei(calc_vec(), input$gei_a_slider)
-    )
-  })
-
-  output$metrics_atk <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      myatkinson(calc_vec(), input$atk_e_slider)
-    )
-  })
-
-
-  output$metrics_sim <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      simpson(calc_vec())
-    )
-  })
-
-  output$metrics_invsim <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      invsimpson(calc_vec())
-    )
-  })
-
-  output$metrics_sha <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      shannon(calc_vec())
-    )
-  })
-
-  output$metrics_renyi <- renderText({
-    if(is.null(data())){return ()}
-    else(
-      renyi(calc_vec(), input$renyi_a_slider)
-    )
-  })
 
 
   #---------------------- value Boxes Calculate
   
-  output$showgini <- renderValueBox({ valueBox( round(gini(calc_vec()), 3), "Gini Index", color = 'yellow' ) })
-  output$showcorrgini <- renderValueBox({ valueBox( round(gini(calc_vec(), corr = T), 3), "Corrected Gini Index", color = 'yellow' ) })
+  output$showgini <- renderValueBox({ 
+                        req(input$file) 
+                        valueBox( round(gini(calc_vec()), 3), "Gini Index", color = 'yellow' ) })
   
-  output$showhoover <- renderValueBox({ valueBox( round(hoover(calc_vec()), 3), "Hoover Index", color = 'red' ) })
-  output$showcorrhoover <- renderValueBox({ valueBox( round(hoover(calc_vec(), corr = T), 3), "Corrected Hoover Index", color = 'red' ) })
+  output$showcorrgini <- renderValueBox({ 
+                            req(input$file) 
+                            valueBox( round(gini(calc_vec(), corr = T), 3), "Corrected Gini Index", color = 'yellow' ) })
   
-  output$showrosen <- renderValueBox({ valueBox( round(rosenbluth(calc_vec()), 3), "Rosenbluth Index", color = 'orange' ) })
+  output$showhoover <- renderValueBox({ 
+                        req(input$file) 
+                        valueBox( round(hoover(calc_vec()), 3), "Hoover Index", color = 'red' ) })
   
-  output$showhhi <- renderValueBox({ valueBox( round(hhi(calc_vec()), 3), "Herfindahl_Hirschmann Index", color = 'aqua' ) })
-  output$showsim <- renderValueBox({ valueBox( round(hhi(calc_vec()), 3), "Simpson Index", color = 'aqua' ) })
-  output$showginisim <- renderValueBox({ valueBox( round(hhi(calc_vec()), 3), "Herfindahl Hirschmann Index", color = 'aqua' ) })
-  output$showinvsim <- renderValueBox({ valueBox( round(hhi(calc_vec()), 3), "Herfindahl Hirschmann Index", color = 'aqua' ) })
+  output$showcorrhoover <- renderValueBox({ 
+                              req(input$file) 
+                              valueBox( round(hoover(calc_vec(), corr = T), 3), "Corrected Hoover Index", color = 'red' ) })
   
-  output$showsim <- renderValueBox({ valueBox( round(simpson(calc_vec()), 3), "Simpson Index", color = 'green' ) })
-  output$showginisim <- renderValueBox({ valueBox( round(simpson(calc_vec(), "ginisim"), 3), "Gini-Simpson Index", color = 'green' ) })
-  output$showinvsim <- renderValueBox({ valueBox( round(simpson(calc_vec(), "invsim"), 3), "Inverted Simpson Index", color = 'green' ) })
+  output$showrosen <- renderValueBox({ 
+    req(input$file) 
+    valueBox( round(rosenbluth(calc_vec()), 3), "Rosenbluth Index", color = 'orange' ) })
   
-  output$showshalog2 <- renderValueBox({ valueBox( round(shannon(calc_vec(), "log2"), 3), "Shannon Index (log2)", color = 'black') })
-  output$showshaln <- renderValueBox({ valueBox( round(shannon(calc_vec(), "ln"), 3), "Shannon Index (ln)", color = 'black') })
-  output$showshalog10 <- renderValueBox({ valueBox( round(shannon(calc_vec(), "log10"), 3), "Shannon Index (log10)", color = 'black') })
+  output$showhhi <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(hhi(calc_vec()), 3), "Herfindahl_Hirschmann Index", color = 'aqua' ) })
   
-  output$showge <- renderValueBox({ valueBox( round(gei(calc_vec()), 3), "Generalized Entropy Index", color = 'fuchsia' ) })
-  output$showatk <- renderValueBox({ valueBox( round(myatkinson(calc_vec()), 3), "Atkinson Index", color = 'purple' ) })
+  output$showsim <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(hhi(calc_vec()), 3), "Simpson Index", color = 'aqua' ) })
   
-  output$showpalma <- renderValueBox({ valueBox( round(palma(calc_vec()), 3), "Palma Ratio", color = 'lime' ) })
-  output$showquint <- renderValueBox({ valueBox( round(quintile(calc_vec()), 3), "Quintile Ratio", color = 'lime' ) })
-  output$showdec <- renderValueBox({ valueBox( round(decile(calc_vec()), 3), "Decile Ratio", color = 'lime' ) })
+  output$showginisim <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(hhi(calc_vec()), 3), "Herfindahl Hirschmann Index", color = 'aqua' ) })
+  
+  output$showinvsim <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(hhi(calc_vec()), 3), "Herfindahl Hirschmann Index", color = 'aqua' ) })
+  
+  output$showsim <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(simpson(calc_vec()), 3), "Simpson Index", color = 'green' ) })
+  
+  output$showginisim <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(simpson(calc_vec(), "ginisim"), 3), "Gini-Simpson Index", color = 'green' ) })
+  
+  output$showinvsim <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(simpson(calc_vec(), "invsim"), 3), "Inverted Simpson Index", color = 'green' ) })
+  
+  output$showshalog2 <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(shannon(calc_vec(), "log2"), 3), "Shannon Index (log2)", color = 'black') })
+  
+  output$showshaln <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(shannon(calc_vec(), "ln"), 3), "Shannon Index (ln)", color = 'black') })
+  
+  output$showshalog10 <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(shannon(calc_vec(), "log10"), 3), "Shannon Index (log10)", color = 'black') })
+  
+  output$showge <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(gei(calc_vec()), 3), "Generalized Entropy Index", color = 'fuchsia' ) })
+  
+  output$showatk <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(myatkinson(calc_vec()), 3), "Atkinson Index", color = 'purple' ) })
+  
+  output$showpalma <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(palma(calc_vec()), 3), "Palma Ratio", color = 'lime' ) })
+  
+  output$showquint <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(quintile(calc_vec()), 3), "Quintile Ratio", color = 'lime' ) })
+  
+  output$showdec <- renderValueBox({ 
+    req(input$file)
+    valueBox( round(decile(calc_vec()), 3), "Decile Ratio", color = 'lime' ) })
   
 
 # final bracket
@@ -644,6 +585,108 @@ output$corrgini_index <- renderValueBox({ valueBox( round(gini(gini_slider(), co
 
 
 
+# 
+# output$metrics_gini <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     gini(calc_vec())
+#   )
+# })
+# 
+# output$metrics_hoover <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     hoover(calc_vec())
+#   )
+# })
+# 
+# output$metrics_ros <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     rosenbluth(calc_vec())
+#   )
+# })
+# 
+# output$metrics_hhi <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     hhi(calc_vec())
+#   )
+# })
+# 
+# 
+# output$metrics_palma <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     palma(calc_vec())
+#   )
+# })
+# 
+# output$metrics_quint <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     quintile(calc_vec())
+#   )
+# })
+# 
+# output$metrics_dec <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     decile(calc_vec())
+#   )
+# })
+# 
+# output$metrics_own <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     ownratio(calc_vec(), input$bottomcalc, input$topcalc)
+#   )
+# })
+# 
+# 
+# 
+# output$metrics_gei <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     gei(calc_vec(), input$gei_a_slider)
+#   )
+# })
+# 
+# output$metrics_atk <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     myatkinson(calc_vec(), input$atk_e_slider)
+#   )
+# })
+# 
+# 
+# output$metrics_sim <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     simpson(calc_vec())
+#   )
+# })
+# 
+# output$metrics_invsim <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     invsimpson(calc_vec())
+#   )
+# })
+# 
+# output$metrics_sha <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     shannon(calc_vec())
+#   )
+# })
+# 
+# output$metrics_renyi <- renderText({
+#   if(is.null(data())){return ()}
+#   else(
+#     renyi(calc_vec(), input$renyi_a_slider)
+#   )
+# })
 
 
 

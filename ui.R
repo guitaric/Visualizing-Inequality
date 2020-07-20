@@ -22,6 +22,7 @@ source('vectortoDT.R')
 source('Intro ui.R')
 source('Gini.R')
 source('Gini ui.R')
+#source('Gini server.R')
 source('Hoover.R')
 source('Hoover ui.R')
 source('Rosenbluth.R')
@@ -129,6 +130,10 @@ body <-
                               # }
          # '))),
     
+    #line thicker and black
+    tags$head(
+      tags$style(HTML("hr {border-top: 1px solid #000000;}"))
+    ),
     
                                 
                                 
@@ -187,41 +192,17 @@ body <-
       # #INtroduction
       # tabItem(tabName = "intro", intropage),
 
-
-      #GiniPage
-       tabItem(tabName = "gini", ginipage),
-
-      #Hooverpage
-      tabItem(tabName = "hoover", hooverpage),
-
-      #RosenbluthPage
-      tabItem(tabName = "rosenbluth", rosenbluthpage),
-
-      #HerfindahlPage
-      tabItem(tabName = "herfindahl", herfindahlpage),
-
-      tabItem(tabName = "simpson", simpsonpage),
-
-
-      tabItem(tabName = "shannon", shannonpage),
-
-      tabItem(tabName = "entropy", geipage),
-
-      tabItem(tabName = "atkinson", atkinsonpage),
-
-      #Ratio Page
-      tabItem(tabName = "ratios", ratiopage),
-
-      #All in onePage
-      tabItem(tabName = "allind", allinonepage),
-
-
-
-      #calculator
-      tabItem(tabName = "calc", calcpage)
-
-      # tabItem(tabName = "doc", docpage)
-      
+     tabItem(tabName = "gini", ginipage),      
+     tabItem(tabName = "hoover", hooverpage),      
+     tabItem(tabName = "rosenbluth", rosenbluthpage),
+     tabItem(tabName = "herfindahl", herfindahlpage),
+     tabItem(tabName = "simpson", simpsonpage),
+     tabItem(tabName = "shannon", shannonpage),
+     tabItem(tabName = "entropy", geipage),
+     tabItem(tabName = "atkinson", atkinsonpage),
+     tabItem(tabName = "ratios", ratiopage),
+     tabItem(tabName = "allind", allinonepage),
+     tabItem(tabName = "calc", calcpage)
     )
     
   )

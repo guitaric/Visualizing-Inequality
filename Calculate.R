@@ -6,9 +6,9 @@ gggini1calc <-
     dat = finalDT_inc(vec)
     
     ggplot(data = dat, mapping = aes(x = cumanteiltraeger, y = cumanteilmerkmal)) + 
-      geom_col(width = 0.01, fill = "#47EABF") +
+      geom_col(width = 0.02, fill = "#000000") +
       geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
-      geom_point(size = 5, colour = "#47EABF") +
+      geom_point(size = 3, colour = "#000000") +
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
@@ -21,8 +21,8 @@ ggrosenbluth1calc <-
   function(vec){
     
     ggplot(data = finalDT_dec(vec), mapping = aes(x = cumanteiltraeger, y = cumanteilmerkmal)) + 
-      geom_point(size = 5, colour = "#47EABF") +
-      geom_col(width = 0.01, fill = "#47EABF") +
+      geom_point(size = 3, colour = "#000000") +
+      geom_col(width = 0.02, fill = "#000000") +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +

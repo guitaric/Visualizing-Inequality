@@ -23,6 +23,7 @@ atkinsonpage <-
       ),
       column(width = 4,
              wellPanel(style = "background: white",
+                       tags$hr(),
                        fluidRow(
                          selectInput("selectdist_atk", "Choose a Distribution", c("A: 1000, 0, 0, 0, 0", "B: 360, 300, 200, 80, 60", "C: 200, 200, 200, 200, 200", "D: 500, 140, 130, 120, 110",
                                                                                   "E: 1000, 280, 260, 240, 220", "F: 180, 180, 150, 150, 100, 100, 40, 40, 30, 30",

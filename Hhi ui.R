@@ -27,6 +27,7 @@ herfindahlpage <-
       column(width = 1),
       column(width = 4,
              wellPanel(style = "background: white",
+                       tags$hr(),
                        h4(tags$b("Build a String")),
                        sliderInput("hhi1", "Person 1", min = 0, max = 10, step = 0.5, value = 5),
                        sliderInput("hhi2", "Person 2", min = 0, max = 10, step = 0.5, value = 2),

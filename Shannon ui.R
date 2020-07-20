@@ -24,6 +24,7 @@ shannonpage <-
       column(width = 4,
              wellPanel(style = "background: white",
                        column(width = 6,
+                              tags$hr(),
                               h4(tags$b("Build a String")),
                               actionButton("abutton", "A"),
                               actionButton("bbutton", "B"),
@@ -43,7 +44,7 @@ shannonpage <-
                        textOutput("testing"),
                        br(),
                        br(),
-                       h5("__________________________________________"),
+                       tags$hr(),
                        tableOutput("shannontable")
              ),
              valueBoxOutput(width = 4, "sha_indexlog2"),

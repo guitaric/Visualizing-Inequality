@@ -3,11 +3,10 @@ calcpage <-
   
   fluidPage(
     fluidRow(
-      useShinyjs(),
       titlePanel("Calculate your Data"),
-      sidebarLayout(
-        sidebarPanel(style = "background: white",
+        column(width = 4,
                      wellPanel(style = "background: white",
+                               tags$hr(),
                                h3(strong("Input")),
                                fileInput("file","Upload a CSV File"), # fileinput() function is used to get the file upload contorl option
                                tags$hr(),
@@ -43,15 +42,17 @@ calcpage <-
                                )
                      )
         ),
-        mainPanel(
+        column(width =8,
           fluidRow(
             wellPanel(inputid = "tables-calcpage", style = "background: white",
+                      tags$hr(),
                       h3(strong("Tables")),
                       uiOutput("tb", style = "height:630px; overflow-y: scroll;overflow-x: scroll;")
                       #textOutput("texttext")
             ),
             wellPanel(style = "background: white",
                       fluidRow(
+                        tags$hr(),
                         h3(strong("Metrics")),
                         column(width = 3, 
                                h5(strong("Deviants Indices")),
@@ -63,7 +64,7 @@ calcpage <-
                         ),
                         column(width = 3,
                                h5(strong("Combinatorics Indices")),
-                               checkboxInput(inputId = 'showhhi', label = 'HHI', value = F),
+                               checkboxInput(inputId = 'showhhi', label = 'Herfindahl-Hirschmann', value = F),
                                checkboxInput(inputId = 'showsim', label = 'Simpson', value = F),
                                checkboxInput(inputId = 'showginisim', label = 'Gini-Simpson', value = F),
                                checkboxInput(inputId = 'showinvsim', label = 'Inverse Simpson', value = F)
@@ -88,6 +89,7 @@ calcpage <-
                         )
                       ),
                       br(),
+                      tags$hr(),
                       br(),
                       # fluidRow(
                       #   column(width = 3, 
@@ -157,7 +159,6 @@ calcpage <-
           )
           
         )
-      )
     )
   )
   

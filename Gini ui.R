@@ -27,6 +27,7 @@ ginipage <-
       column(width = 1),
       column(width = 4,
              wellPanel(style = "background: white",
+                       tags$hr(),
                        h4(tags$b("Set the Income")),
                        sliderInput("sli1", "First Person's Income", min = 0, max = 10, step = 0.5, value = 10),
                        sliderInput("sli2", "Second Person's Income", min = 0, max = 10, step = 0.5, value = 6),
