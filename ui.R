@@ -3,7 +3,9 @@ library(shinydashboard)
 library(shinydashboardPlus)
 library(shinyWidgets)
 library(shinyjs)
+library(foreign)
 
+library(here)
 library(ggplot2)
 library(plotly)
 library(data.table)
@@ -14,15 +16,11 @@ library(openxlsx)
 library(entropy)
 
 #----------------------------------Sources
-# source('overviewcalc.R')
 source('vectortoDT.R')
-# source('indextable.R')
-# # 
 # 
 source('Intro ui.R')
 source('Gini.R')
 source('Gini ui.R')
-#source('Gini server.R')
 source('Hoover.R')
 source('Hoover ui.R')
 source('Rosenbluth.R')
@@ -137,19 +135,20 @@ body <-
     
                                 
                                 
-    #box colors of pages                           
-    tags$style(".small-box.bg-yellow { background-color: #FCDB28 !important; color: #000000 !important; }"),
-    tags$style(".small-box.bg-red { background-color: #FC716B !important; color: #000000 !important; }"),
-    tags$style(".small-box.bg-orange { background-color: #ffd591 !important; color: #000000 !important; }"),
-    tags$style(".small-box.bg-aqua { background-color: #9de0ec !important; color: #000000 !important; }"),
+    #box colors of pages  
+  
+    tags$style(".small-box.bg-yellow { background-color: #FCDB28 !important; color: #000000 !important; }"), #gini
+    tags$style(".small-box.bg-red { background-color: #FC716B !important; color: #000000 !important; }"), #rosenbluth
+    tags$style(".small-box.bg-orange { background-color: #b3f6c1  !important; color: #000000 !important; }"), #hoover
+    tags$style(".small-box.bg-aqua { background-color: #9de0ec !important; color: #000000 !important; }"), #aqua
     
-    tags$style(".small-box.bg-green { background-color: #88fba7  !important; color: #000000 !important; }"),
-    tags$style(".small-box.bg-black { background-color: #000000 !important; color: #FFFFFF !important; }"),
+    tags$style(".small-box.bg-green { background-color: #88fba7  !important; color: #000000 !important; }"), #simpson
+    tags$style(".small-box.bg-black { background-color:  #bdbfc3 !important; color: #000000 !important; }"), #shannon
     
-    tags$style(".small-box.bg-lime { background-color: #3f7b95 !important; color: #FFFFFF !important; }"),
+    tags$style(".small-box.bg-lime { background-color: #bee5df !important; color: #000000 !important; }"), #ratios
     
-    tags$style(".small-box.bg-fuchsia { background-color: #f9bd11 !important; color: #FFFFFF !important; }"),
-    tags$style(".small-box.bg-purple { background-color:  #97212f !important; color: #FFFFFF !important; }"),
+    tags$style(".small-box.bg-fuchsia { background-color:  #d3adde !important; color: #000000 !important; }"), #ge
+    tags$style(".small-box.bg-purple { background-color:   #fc975d !important; color: #000000 !important; }"), #atkinson
     
     #f9bd11
     
@@ -167,6 +166,7 @@ body <-
     tags$style(HTML(".js-irs-8 .irs-single, .js-irs-8 .irs-bar-edge, .js-irs-8 .irs-bar {background: #FC716B}")),
     tags$style(HTML(".js-irs-9 .irs-single, .js-irs-9 .irs-bar-edge, .js-irs-9 .irs-bar {background: #FC716B}")),
     
+    #Hoover Index Slider Color
     tags$style(HTML(".js-irs-10 .irs-single, .js-irs-10 .irs-bar-edge, .js-irs-10 .irs-bar {background: #ffd591}")),
     tags$style(HTML(".js-irs-11 .irs-single, .js-irs-11 .irs-bar-edge, .js-irs-11 .irs-bar {background: #ffd591}")),
     tags$style(HTML(".js-irs-12 .irs-single, .js-irs-12 .irs-bar-edge, .js-irs-12 .irs-bar {background: #ffd591}")),
@@ -174,16 +174,10 @@ body <-
     tags$style(HTML(".js-irs-14 .irs-single, .js-irs-14 .irs-bar-edge, .js-irs-14 .irs-bar {background: #ffd591}")),
     
     tags$style(HTML(".js-irs-15 .irs-single, .js-irs-15 .irs-bar-edge, .js-irs-15 .irs-bar {background: #9de0ec}")),
-    tags$style(HTML(".js-irs-16 .irs-single, .js-irs-16 .irs-bar-edge, .js-irs-16 .irs-bar {background: #9de0ec")),
+    tags$style(HTML(".js-irs-16 .irs-single, .js-irs-16 .irs-bar-edge, .js-irs-16 .irs-bar {background: #9de0ec}")),
     tags$style(HTML(".js-irs-17 .irs-single, .js-irs-17 .irs-bar-edge, .js-irs-17 .irs-bar {background: #9de0ec}")),
     tags$style(HTML(".js-irs-18 .irs-single, .js-irs-18 .irs-bar-edge, .js-irs-18 .irs-bar {background: #9de0ec}")),
     tags$style(HTML(".js-irs-19 .irs-single, .js-irs-19 .irs-bar-edge, .js-irs-19 .irs-bar {background: #9de0ec}")),
-    
-
-
-
-    
-    
     
     
     
@@ -209,6 +203,8 @@ body <-
 
 
 #------------------------------------------------------------------------------------
+
+
 
 
 ui <- dashboardPage(

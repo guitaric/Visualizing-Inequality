@@ -34,3 +34,27 @@ ggsimpson <-
       theme_classic()
     
   }
+
+
+#------------------------Simpson Table
+
+simpdat <- 
+  
+  function(vec){
+    
+    group <- as.factor(c())
+    xaxis <- runif(sum(vec), 0, 1)
+    yaxis <- runif(sum(vec), 0, 1)
+    
+    j <- 1
+    for(i in 1:length(vec)){
+      help <- rep(j, vec[i])
+      group <- append(group, help)
+      j <- j + 1
+    }
+    
+    back <- data.table(group, xaxis, yaxis)
+    back$group <- as.factor(back$group)
+    
+    return(back)
+  }

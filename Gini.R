@@ -82,7 +82,7 @@ gini <-
   function(vec, corr = F){
     total = (0.5 - (underlorenz(vec)))/0.5
     if(corr == T) total = total*(length(vec)/(length(vec)-1))
-    return(total)
+    return(round(total, 5))
   }
 
 
@@ -91,9 +91,7 @@ gggini1 <-
   
   function(vec){
     
-    dat = finalDT_inc(vec)
-    
-    ggplot(data = dat, mapping = aes(x = cumanteiltraeger, y = cumanteilmerkmal)) + 
+    ggplot(data = finalDT_inc(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) + 
       geom_col(width = 0.2, fill = "#FCDB28") +
       geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
       geom_point(size = 3, colour = "#FCDB28") +
@@ -109,7 +107,7 @@ gggini2 <-
   
   function(vec){
     
-    ggplot(data = finalDT_inc(vec), mapping = aes(x = cumanteiltraeger, y = cumanteilmerkmal)) + 
+    ggplot(data = finalDT_inc(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) + 
       geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
       geom_col(width = 0.2) +
       geom_line(size = 0.8, colour = '#FCDB28') +
@@ -128,14 +126,14 @@ gggini3 <-
   
   function(vec){
     
-    ggplot(data = finalDT_inc(vec), mapping = aes(x = cumanteiltraeger, y = cumanteilmerkmal)) + 
+    ggplot(data = finalDT_inc(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) + 
       geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
       geom_segment(aes(x = 100, y = 0, xend = 100, yend = 100), size = 0.3) +
       geom_segment(aes(x = 0, y = 0, xend = 100, yend = 100), 
                    size = 0.8, linetype = 'longdash') +                            #diagonal of equal distribution
-      geom_ribbon(aes(x = cumanteiltraeger, 
-                      ymin = cumanteilmerkmal, 
-                      ymax = cumanteiltraeger), alpha = 0.5, fill = "#FCDB28") +             #area between actual and equal
+      geom_ribbon(aes(x = cumsharecomp, 
+                      ymin = cumshareunits, 
+                      ymax = cumsharecomp), alpha = 0.5, fill = "#FCDB28") +             #area between actual and equal
       geom_point(size = 3) +
       geom_line(size = 0.8) +
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +

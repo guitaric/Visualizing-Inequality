@@ -38,3 +38,28 @@ ggatkinson <-
       theme_minimal() 
     
   }
+
+
+
+
+atk_dat <- 
+  
+  function(vec){
+    
+    if(any(vec < 0)) stop("negative number found")    #exception negative number in vector
+    if(length(vec)==0) stop("empty vector")               #exception no value in vector
+    if(sum(vec)==0) stop("no values")
+    
+    epsilon <- c(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2)
+    atk <- c()
+    
+    for(i in 1:8){
+      atk[i] <- round(ineq::Atkinson(vec, epsilon[i]), 3)
+    }
+    
+    back <- data.table(EpsilonValue = epsilon, 
+                       Atkinson = atk)
+    
+    return(back)
+    
+  }
