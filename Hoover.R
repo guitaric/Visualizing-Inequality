@@ -22,24 +22,31 @@ gghoover <-
     
     hoo <- finalDT_inc(vec)$cumsharecomp - finalDT_inc(vec)$cumshareunits
     maxindex <- which(hoo == max(hoo))
-    xloc <- finalDT_inc(vec)$cumsharecomp[maxindex]
-    print(hoo)
-    print(maxindex)
-    print(xloc)
-    ggplot(data = finalDT_inc(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) +
-    geom_point(size = 3) +
-    geom_line(size = 0.8) +
-    geom_segment(aes(x = 0, y = 0, xend = 100, yend = 100),
-                 size = 0.8, linetype = 'longdash') +         #diagonal of equal distribution
-    geom_col(alpha = 0.5, width = 0.1) +
-    geom_segment(aes(x = xloc, xend = xloc, y = xloc - max(hoo), yend = xloc),
-                 size = 1.5, linetype = 'solid', colour = '#FC716B') +
-    geom_point(x = xloc, y = xloc - max(hoo), colour = '#FC716B', size = 4) +
-    geom_point(x = xloc, y = xloc, colour = '#FC716B', size = 4) +
-    coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
-    geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
-    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    labs(x = "Cumul. Share of Carrier in %", y = "Cumul. Share of Total Capital in %") +
-    theme_minimal()
+    xloc <- finalDT_inc(vec)$cumsharecomp[maxindex[1]]
+    if(length(maxindex) > 1){ xloc_end <- finalDT_inc(vec)$cumsharecomp[tail(maxindex, 1)]}
+    
+    back <- ggplot(data = finalDT_inc(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) +
+                geom_point(size = 3) +
+                geom_line(size = 0.8) +
+                geom_segment(aes(x = 0, y = 0, xend = 100, yend = 100),
+                             size = 0.8, linetype = 'longdash') +         #diagonal of equal distribution
+                geom_col(alpha = 0.5, width = 0.1) +
+                geom_segment(aes(x = xloc, xend = xloc, y = xloc - max(hoo), yend = xloc),
+                             size = 1.5, linetype = 'solid', colour = '#ffc196') +
+                geom_point(x = xloc, y = xloc - max(hoo), colour = '#ffc196', size = 4) +
+                geom_point(x = xloc, y = xloc, colour = '#ffc196', size = 4) +
+                coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
+                geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
+                scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+                scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+                labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
+                theme_minimal()
+    
+    if(exists("xloc_end")){ back <- back +
+                                    geom_segment(aes(x = xloc_end, xend = xloc_end, y = xloc_end - max(hoo), yend = xloc_end),
+                                                 size = 1.5, linetype = 'solid', colour = '#ffc196') +
+                                    geom_point(x = xloc_end, y = xloc_end - max(hoo), colour = '#ffc196', size = 4) +
+                                    geom_point(x = xloc_end, y = xloc_end, colour = '#ffc196', size = 4)
+ }
+    return(back)
   }

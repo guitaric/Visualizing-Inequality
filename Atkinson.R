@@ -33,8 +33,12 @@ myatkinson <-
 ggatkinson <- 
   
   function(vec){
+    
     ggplot(data = atk_dat(vec), mapping = aes(x = EpsilonValue, y = Atkinson)) + 
-      geom_col() +
+      geom_col(width = 0.15, fill = '#ffaa6b') +
+      coord_cartesian(ylim = c(0, 1)) +
+      labs(x = "Epsilon Value", y = "Atkinson Index") +     
+      scale_x_continuous(breaks = c(0, 1, 2, 3)) +
       theme_minimal() 
     
   }
@@ -50,10 +54,10 @@ atk_dat <-
     if(length(vec)==0) stop("empty vector")               #exception no value in vector
     if(sum(vec)==0) stop("no values")
     
-    epsilon <- c(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2)
+    epsilon <- c(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3)
     atk <- c()
     
-    for(i in 1:8){
+    for(i in 1:13){
       atk[i] <- round(ineq::Atkinson(vec, epsilon[i]), 3)
     }
     

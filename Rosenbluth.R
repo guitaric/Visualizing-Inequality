@@ -46,14 +46,13 @@ ggrosenbluth1 <-
   
   function(vec){
     
-    ggplot(data = finalDT_dec(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) + 
+    ggplot(data = finalDT_dec(vec), mapping = aes(x = count, y = cumshareunits)) + 
+      geom_col(alpha = 0.9, width = 0.4, fill = '#ff8873') +
       geom_point() +
-      geom_col(alpha = 0.5, width = 7, fill = '#ffd591') +
-      scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
+      coord_cartesian(xlim =c(0, length(vec)), ylim = c(0, 100)) +
       geom_segment(aes(x = 0, y = 0, xend = 120, yend = 0), size = 0.3) +
-      labs(x = "Cumul. Share of Carrier in %", y = "Cumul. Market Share in %") +
+      labs(x = "Companies by Market Share in Descending Order (Cumulated)", 
+           y = "Cumul. Market Share in %") +
       theme_minimal()
   }
 
@@ -62,17 +61,17 @@ ggrosenbluth2 <-
   
   function(vec){
     
-    ggplot(data = finalDT_dec(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) + 
+    ggplot(data = finalDT_dec(vec), mapping = aes(x = count, y = cumshareunits)) + 
       geom_point(size = 3) +
-      geom_line(size = 0.8, colour = '#ffd591') +
-      geom_segment(aes(x = 0, y = 0, xend = 100, yend = 100),
-                   size = 0.8, linetype = 'longdash') +         #diagonal of equal distribution
-      geom_col(alpha = 0.5, width = 0.3) +
-      coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
-      geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
-      scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumul. Share of Carrier in %", y = "Cumul. Share of Market Share in %") +
+      geom_col(width = 0.02) +
+      geom_line(size = 0.8, color = '#ff8873') +
+      geom_point(size = 3) +
+      geom_segment(aes(x = 0, y = 0, xend = length(vec), yend = 100),
+                   size = 0.8, linetype = 'longdash', color = '#ff8873') +  #diagonal of equal distribution
+      coord_cartesian(xlim =c(0, length(vec)), ylim = c(0, 100)) +
+      geom_segment(aes(x = 0, y = 0, xend = length(vec), yend = 0), size = 0.3) +
+      labs(x = "Companies by Market Share in Descending Order (Cumulated)", 
+           y = "Cumul. Market Share in %") +
       theme_minimal()
   }
 
@@ -82,20 +81,18 @@ ggrosenbluth3 <-
   function(vec){
     
     ggplot(data = finalDT_dec(vec), 
-           mapping = aes(x = cumsharecomp, y = cumshareunits)) + 
-      geom_point(size = 3) +
+           mapping = aes(x = count, y = cumshareunits)) + 
+      geom_segment(aes(x = 0, y = 0, xend = length(vec), yend = 100),
+                   size = 0.8, linetype = 'longdash') +   #diagonal of equal distribution
       geom_line(size = 0.8) +
-      geom_segment(aes(x = 0, y = 0, xend = 100, yend = 100), 
-                   size = 0.8, linetype = 'longdash') +                    #diagonal of equal distribution
-      geom_ribbon(aes(x = cumsharecomp, 
+      geom_ribbon(aes(x = count, 
                       ymin = cumshareunits, 
-                      ymax = 100), alpha = 0.5, fill = '#ffd591') +    #area between actual and equal
-      geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
+                      ymax = 100), alpha = 0.9, fill = '#ff8873') +    #area between actual and equal
+      geom_point(size = 3) +
+      geom_segment(aes(x = 0, y = 0, xend = length(vec), yend = 0), size = 0.3) +
       geom_segment(aes(x = 0, y = 0, xend = 0, yend = 100), size = 0.5) +
-      geom_segment(aes(x = 0, y = 100, xend = 100, yend = 100), size = 0.5) +
-      coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
-      scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumul. Share of Carrier in %", y = "Cumul. Market Share in %") +
+      geom_segment(aes(x = 0, y = 100, xend = length(vec), yend = 100), size = 0.5) +
+      labs(x = "Companies by Market Share in Descending Order (Cumulated)", 
+           y = "Cumul. Market Share in %") +
       theme_minimal()
   }

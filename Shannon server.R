@@ -1,5 +1,5 @@
+
 counter <- reactiveValues(countervalue = "A B A")
-# counter <- reactiveValues(count = 0 )
 
 #create Letters
 observeEvent(input$abutton, { counter$countervalue <- paste(counter$countervalue, " A") })
@@ -10,15 +10,11 @@ observeEvent(input$ebutton, { counter$countervalue <- paste(counter$countervalue
 observeEvent(input$fbutton, { counter$countervalue <- paste(counter$countervalue, " F") })
 
 
-# observeEvent(input$abutton, { counter$count <- counter$count + 1 })
-# observeEvent(input$bbutton, { counter$count <- counter$count + 1 })
-# observeEvent(input$cbutton, { counter$count <- counter$count + 1 })
-# observeEvent(input$dbutton, { counter$count <- counter$count + 1 })
-
 # clear text
 observeEvent(input$clearbutton, { counter$countervalue = ""
 counter$count = 0})
 
+#delete last letter
 observeEvent(input$returnbutton, { counter$countervalue = str_sub(counter$countervalue, 1, str_count(counter$countervalue) -1)
 counter$count = counter$count -1})
 
@@ -37,10 +33,29 @@ shannonvec <- reactive({
   
   back <- c(as, bs, cs, ds, es, fs)
   
+  return(back)
+})
+
+
+
+svec_no0 <- reactive({
+  shavec <- as.vector(counter$countervalue)
+  
+  as <- str_count(shavec, "A")
+  bs <- str_count(shavec, "B")
+  cs <- str_count(shavec, "C")
+  ds <- str_count(shavec, "D")
+  es <- str_count(shavec, "E")
+  fs <- str_count(shavec, "F")
+  
+  
+  back <- c(as, bs, cs, ds, es, fs)
+  
   return(back[back != 0])
 })
 
 
+#chosen log
 loga <- reactive({ as.character(input$logtype) })
 
 #typed in string
@@ -48,18 +63,18 @@ output$shannontext <- renderText({ counter$countervalue })
 
 #table values Shannon
 output$shannontable <- renderTable({
-  if(shannonvec() == '') return()
-  else shannondat(shannonvec(), loga()) 
-  })
+  req(length(svec_no0()) > 0)
+  shannondat(shannonvec(), loga()) 
+  }, digits = 3)
 
 
-#display index
-# output$sha_index <- renderValueBox({
-#   if(shannonvec() == 0) return( valueBox( 0, "Shannon Index", color = 'yellow' ) )
-#   else return ( valueBox( shannon(shannonvec(), loga()), "Shannon Index", color = 'black' ) )
-# })
+ 
+output$sha_indexlog2 <- renderValueBox({ req(length(svec_no0()) > 0)
+       valueBox( round(shannon(svec_no0(), "log2"), 3), "Shannon Index (log 2)", color = 'black') })
 
-output$sha_indexlog2 <- renderValueBox({ valueBox( round(shannon(shannonvec(), "log2"), 3), "Shannon Index (log2)", color = 'black') })
-output$sha_indexln <- renderValueBox({ valueBox( round(shannon(shannonvec(), "ln"), 3), "Shannon Index (ln)", color = 'black') })
-output$sha_indexlog10 <- renderValueBox({ valueBox( round(shannon(shannonvec(), "log10"), 3), "Shannon Index (log10)", color = 'black') })
+output$sha_indexln <- renderValueBox({ req(length(svec_no0()) > 0)
+       valueBox( round(shannon(svec_no0(), "ln"), 3), "Shannon Index (log nat)", color = 'black') })
+
+output$sha_indexlog10 <- renderValueBox({ req(length(svec_no0()) > 0) 
+       valueBox( round(shannon(svec_no0(), "log10"), 3), "Shannon Index (log10)", color = 'black') })
 

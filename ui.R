@@ -4,20 +4,17 @@ library(shinydashboardPlus)
 library(shinyWidgets)
 library(shinyjs)
 library(foreign)
-
 library(here)
 library(ggplot2)
-library(plotly)
 library(data.table)
 library(R.utils)
 library(stringr)
 library(schoolmath)
-library(openxlsx)
 library(entropy)
+library(Hmisc)
 
 #----------------------------------Sources
 source('vectortoDT.R')
-# 
 source('Intro ui.R')
 source('Gini.R')
 source('Gini ui.R')
@@ -37,7 +34,6 @@ source('Atkinson.R')
 source('Atkinson ui.R')
 source('Ratios.R')
 source('Ratios ui.R')
-source('Allinone ui.R')
 source('Calculate.R')
 source('Calculate ui.R')
 source('Documentation ui.R')
@@ -57,26 +53,25 @@ sidebar <-
     dashboardSidebar(
       sidebarMenu(
         menuItem("Introduction", tabName = "intro"),
-        menuItem("Indices", tabName = "ind", startExpanded = T,
-                 menuItem("Indices of Deviants", tabName = "model1", startExpanded = T,
+        menuItem("Indices", tabName = "ind", startExpanded = F,
+                 menuItem("Indices of Deviation", tabName = "model1", startExpanded = F,
                           menuItem("Gini Index", tabName = "gini"),
                           menuItem("Rosenbluth Index", tabName = "rosenbluth"),
                           menuItem("Hoover Index", tabName = "hoover")
                  ),
-                 menuItem("Indices of Probability", tabName = "model2",
+                 menuItem("Indices of Combinatorics", tabName = "model2",
                           menuItem("Herfindahl-Hirschmann Index", tabName = "herfindahl"),
                           menuItem("Simpson Index", tabName = "simpson")
                  ),
                  menuItem("Indices of Entropy", tabName = "model3",
-                          menuItem("Shannon Index/Renyi Entropy", tabName = "shannon"),
+                          menuItem("Shannon Index", tabName = "shannon"),
                           menuItem("Entropy Metrics", tabName = "entropy")
                           
                  ),
                  menuItem("Indices of Social Welfare", tabName = "model4",
                           menuItem("Atkinson Index", tabName = "atkinson")
                  ),
-                 menuItem("Ratios", tabName = "ratios"),
-                 menuItem("At one glance", tabName = "allind")
+                 menuItem("Ratios", tabName = "ratios")
         ),
         menuItem("Calculate", tabName = "calc"),
         menuItem("Documentation", tabName = "doc")
@@ -90,130 +85,45 @@ body <-
   
   dashboardBody(
     
+    
+        # include the CSS file
+        tags$head(
+          tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+        ),
 
+        includeCSS("custom.css"),
 
-    # tags$head(tags$style(HTML('
-                              #       /* logo */
-                              #   .skin-blue .main-header .logo {
-                              #   background-color: #f4b943;
-                              #   }
-                              # 
-                              #   /* logo when hovered */
-                              #   .skin-blue .main-header .logo:hover {
-                              #   background-color: #f4b943;
-                              #   }
-                              # 
-                              #   /* navbar (rest of the header) */
-                              #   .skin-blue .main-header .navbar {
-                              #   background-color: #000000;
-                              #   }
-                              #   
-                              #   /* body */
-                              #   .content-wrapper, .right-side {
-                              #   background-color:  #FFFFFFw   
-                              #   }
-                              #   
-                              #   
-                              #   -moz-transform: scale(0.7, 0.7); /* Moz-browsers */
-                              #   zoom: 0.7; /* Other non-webkit browsers */
-                              #   zoom: 70%; /* Webkit browsers */
-                              #   
-                              #   /* main sidebar */
-                              # .skin-blue .main-sidebar {
-                              # background-color: #000000;
-                              # font-family: "Calibri";
-                              # font-size:25px;
-                              # line-height:1.42857143;
-                              # color: #88fba7;
-                              # }
-         # '))),
-    
-    #line thicker and black
-    tags$head(
-      tags$style(HTML("hr {border-top: 1px solid #000000;}"))
-    ),
-    
-                                
-                                
-    #box colors of pages  
-  
-    tags$style(".small-box.bg-yellow { background-color: #FCDB28 !important; color: #000000 !important; }"), #gini
-    tags$style(".small-box.bg-red { background-color: #FC716B !important; color: #000000 !important; }"), #rosenbluth
-    tags$style(".small-box.bg-orange { background-color: #b3f6c1  !important; color: #000000 !important; }"), #hoover
-    tags$style(".small-box.bg-aqua { background-color: #9de0ec !important; color: #000000 !important; }"), #aqua
-    
-    tags$style(".small-box.bg-green { background-color: #88fba7  !important; color: #000000 !important; }"), #simpson
-    tags$style(".small-box.bg-black { background-color:  #bdbfc3 !important; color: #000000 !important; }"), #shannon
-    
-    tags$style(".small-box.bg-lime { background-color: #bee5df !important; color: #000000 !important; }"), #ratios
-    
-    tags$style(".small-box.bg-fuchsia { background-color:  #d3adde !important; color: #000000 !important; }"), #ge
-    tags$style(".small-box.bg-purple { background-color:   #fc975d !important; color: #000000 !important; }"), #atkinson
-    
-    #f9bd11
-    
-    
-    #slider colors
-    tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #FCDB28}")),
-    tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #FCDB28}")),
-    tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: #FCDB28}")),
-    tags$style(HTML(".js-irs-3 .irs-single, .js-irs-3 .irs-bar-edge, .js-irs-3 .irs-bar {background: #FCDB28}")),
-    tags$style(HTML(".js-irs-4 .irs-single, .js-irs-4 .irs-bar-edge, .js-irs-4 .irs-bar {background: #FCDB28}")),
-    
-    tags$style(HTML(".js-irs-5 .irs-single, .js-irs-5 .irs-bar-edge, .js-irs-5 .irs-bar {background: #FC716B}")),
-    tags$style(HTML(".js-irs-6 .irs-single, .js-irs-6 .irs-bar-edge, .js-irs-6 .irs-bar {background: #FC716B}")),
-    tags$style(HTML(".js-irs-7 .irs-single, .js-irs-7 .irs-bar-edge, .js-irs-7 .irs-bar {background: #FC716B}")),
-    tags$style(HTML(".js-irs-8 .irs-single, .js-irs-8 .irs-bar-edge, .js-irs-8 .irs-bar {background: #FC716B}")),
-    tags$style(HTML(".js-irs-9 .irs-single, .js-irs-9 .irs-bar-edge, .js-irs-9 .irs-bar {background: #FC716B}")),
-    
-    #Hoover Index Slider Color
-    tags$style(HTML(".js-irs-10 .irs-single, .js-irs-10 .irs-bar-edge, .js-irs-10 .irs-bar {background: #ffd591}")),
-    tags$style(HTML(".js-irs-11 .irs-single, .js-irs-11 .irs-bar-edge, .js-irs-11 .irs-bar {background: #ffd591}")),
-    tags$style(HTML(".js-irs-12 .irs-single, .js-irs-12 .irs-bar-edge, .js-irs-12 .irs-bar {background: #ffd591}")),
-    tags$style(HTML(".js-irs-13 .irs-single, .js-irs-13 .irs-bar-edge, .js-irs-13 .irs-bar {background: #ffd591}")),
-    tags$style(HTML(".js-irs-14 .irs-single, .js-irs-14 .irs-bar-edge, .js-irs-14 .irs-bar {background: #ffd591}")),
-    
-    tags$style(HTML(".js-irs-15 .irs-single, .js-irs-15 .irs-bar-edge, .js-irs-15 .irs-bar {background: #9de0ec}")),
-    tags$style(HTML(".js-irs-16 .irs-single, .js-irs-16 .irs-bar-edge, .js-irs-16 .irs-bar {background: #9de0ec}")),
-    tags$style(HTML(".js-irs-17 .irs-single, .js-irs-17 .irs-bar-edge, .js-irs-17 .irs-bar {background: #9de0ec}")),
-    tags$style(HTML(".js-irs-18 .irs-single, .js-irs-18 .irs-bar-edge, .js-irs-18 .irs-bar {background: #9de0ec}")),
-    tags$style(HTML(".js-irs-19 .irs-single, .js-irs-19 .irs-bar-edge, .js-irs-19 .irs-bar {background: #9de0ec}")),
-    
-    
     
     tabItems(
       
-      # #INtroduction
-      # tabItem(tabName = "intro", intropage),
-
-     tabItem(tabName = "gini", ginipage),      
-     tabItem(tabName = "hoover", hooverpage),      
+     tabItem(tabName = "intro", intropage),
+     
+     tabItem(tabName = "gini", ginipage), 
      tabItem(tabName = "rosenbluth", rosenbluthpage),
+     tabItem(tabName = "hoover", hooverpage),      
      tabItem(tabName = "herfindahl", herfindahlpage),
      tabItem(tabName = "simpson", simpsonpage),
      tabItem(tabName = "shannon", shannonpage),
      tabItem(tabName = "entropy", geipage),
      tabItem(tabName = "atkinson", atkinsonpage),
      tabItem(tabName = "ratios", ratiopage),
-     tabItem(tabName = "allind", allinonepage),
-     tabItem(tabName = "calc", calcpage)
+
+     tabItem(tabName = "calc", calcpage),
+     tabItem(tabName = "doc", docpage)
     )
-    
   )
 
 
 #------------------------------------------------------------------------------------
 
 
-
-
 ui <- dashboardPage(
+
           header = header, 
           sidebar = sidebar, 
           body = body,
+          
           skin = 'black'
           
           )
-
-
 

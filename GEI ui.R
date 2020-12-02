@@ -3,62 +3,49 @@ geipage <-
   fluidPage(
     fluidRow(
       column(width = 8,
-             h3(tags$b("Generalized Entropy Index")),
-             h4("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                  sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                  no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                  consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                  sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                  no sea takimata sanctus est Lorem ipsum dolor sit amet."),
-             h3(tags$b("Theil Index")),
-             h4("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                  sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                  no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                  consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                  sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                  no sea takimata sanctus est Lorem ipsum dolor sit amet.")
-             
+             wellPanel(class = "bw texts",
+                       div(class = "metric_header", "Generalized Entropy Index"),
+                       div(class = "metric_text",
+                           p("The generalized entropy also uses the logarithm to assess the inequality of a distribution (Cowell, 2011). The unique characteristic of this index lies in its additional parameter alpha. This parameter allows to finetune the sensitivity of the index to a specified area of interest. The range of the alpha parameter is [-\u221e, +\u221e]. The higher alpha, i.e., the more positive, the more sensitive is the index at the high (or rich) part of the distribution. Conversely, the lower alpha, i.e., the more negative, the more sensitive is the index at the low part of the distribution. Notably, the generalized entropy index with alpha = 0 corresponds to the mean log deviation and with alpha = 1 to the Theil index (Cowell, 2011).")
+                   ),
+                   br(),
+                   hr(),
+                   br(),
+               div(class = "instructions",
+                   p("By choosing one of the sample distributions, the generalized entropy indices for all alphas 
+                     between -4 and 4 (in 0.5 steps) are displayed in the bar plot. Additionally, you can set 
+                     the slider on specific parameter values to have the exact generalized entropy index."),
+                   br(),
+                   br()
+               )
+             )
       ),
       column(width = 4,
+             wellPanel(class = "bw",
+               div(class = "inter_header", "Choose a distribution"),
+               fluidRow(
+                 selectInput("selectdist_ent", "", c("A: 110, 120, 130, 140, 150, 500", "B: 100, 210, 220, 230, 240, 250", "C: 200, 200, 200, 200, 200, 200, 200", "D: 110, 110, 120, 120, 130, 130, 140, 140, 150, 150, 500, 500", "E: 100, 100, 210, 210, 220, 220, 230, 230, 240, 240, 250, 250", "F: 100, 1100, 1200, 1300, 1400, 1500", "G: 220, 240, 260, 280, 1000", "H: 200, 420, 440, 460, 480, 500")),
+                 hr(),
+                 box(title = "How the Parameter alpha is affecting the Generalized Entropy Index", 
+                     width = 12, solidHeader = T, plotOutput("gei_plot"))
+                 )
+             ),
+             wellPanel(class = "bw",  
+                 fluidRow(
+                   sliderInput("gei1", "Choose Alpha", min = 0, max = 2, step = 0.25, value = 1)
+                 )
+                       
+             ),
              wellPanel(style = "background: white",
-                       tags$hr(),
-                       fluidRow(
-                         selectInput("selectdist_ent", "Choose a Distribution", c("A: 1000, 0, 0, 0, 0", "B: 360, 300, 200, 80, 60", "C: 200, 200, 200, 200, 200", "D: 500, 140, 130, 120, 110",
-                                                                                  "E: 1000, 280, 260, 240, 220", "F: 180, 180, 150, 150, 100, 100, 40, 40, 30, 30",
-                                                                                  "G: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,", "H: 199, 199, 199, 199, 199, 1, 1, 1, 1, 1")),
-                         br(),
-                         br(),
-                         box(title = "How the Parameter alpha is affecting the Generalized Entropy Index", width = 12, solidHeader = T, plotOutput("ge_plot"),
-
-                             
-                             #sliderInput("alpha_input", "Choose Alpha", min = 0, max = 50, value = 1)
-                         )
-                       )
+                 fluidRow(
+                   valueBoxOutput(width = 12, "gei_index")
+                 )
              )
-             #column(width = 4,
-             #box(title = "Determine the longest Dist. between Line of Eq. and drawn Line", solidHeader = T,
-             #plotOutput("sliderhoover")
-             #)
       )
-    )
+    ),
+    tags$footer(foot)
   )
+
+
+
+

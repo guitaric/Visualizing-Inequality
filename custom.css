@@ -1,0 +1,252 @@
+
+
+  .main-header .logo {
+      font-weight: bold;
+      font-size: 26px;
+      color: #ffffff;
+      background-color: #000000;
+  }
+
+
+/*slider colors------------------------------------------*/
+    
+  /*gini slider*/
+  .js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #FCDB28}
+  .js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #FCDB28}
+  .js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: #FCDB28}
+  .js-irs-3 .irs-single, .js-irs-3 .irs-bar-edge, .js-irs-3 .irs-bar {background: #FCDB28}
+  .js-irs-4 .irs-single, .js-irs-4 .irs-bar-edge, .js-irs-4 .irs-bar {background: #FCDB28}
+    
+  /*rosenbluth slider*/
+  .js-irs-5 .irs-single, .js-irs-5 .irs-bar-edge, .js-irs-5 .irs-bar {background: #ff8873}
+  .js-irs-6 .irs-single, .js-irs-6 .irs-bar-edge, .js-irs-6 .irs-bar {background: #ff8873}
+  .js-irs-7 .irs-single, .js-irs-7 .irs-bar-edge, .js-irs-7 .irs-bar {background: #ff8873}
+  .js-irs-8 .irs-single, .js-irs-8 .irs-bar-edge, .js-irs-8 .irs-bar {background: #ff8873}
+  .js-irs-9 .irs-single, .js-irs-9 .irs-bar-edge, .js-irs-9 .irs-bar {background: #ff8873}
+  
+  /*hoover Index Slider Color*/
+  .js-irs-10 .irs-single, .js-irs-10 .irs-bar-edge, .js-irs-10 .irs-bar {background: #ffc196}
+  .js-irs-11 .irs-single, .js-irs-11 .irs-bar-edge, .js-irs-11 .irs-bar {background: #ffc196}
+  .js-irs-12 .irs-single, .js-irs-12 .irs-bar-edge, .js-irs-12 .irs-bar {background: #ffc196}
+  .js-irs-13 .irs-single, .js-irs-13 .irs-bar-edge, .js-irs-13 .irs-bar {background: #ffc196}
+  .js-irs-14 .irs-single, .js-irs-14 .irs-bar-edge, .js-irs-14 .irs-bar {background: #ffc196}
+  
+  /*hhi slider*/
+  .js-irs-15 .irs-single, .js-irs-15 .irs-bar-edge, .js-irs-15 .irs-bar {background: #9de0ec}
+  .js-irs-16 .irs-single, .js-irs-16 .irs-bar-edge, .js-irs-16 .irs-bar {background: #9de0ec}
+  .js-irs-17 .irs-single, .js-irs-17 .irs-bar-edge, .js-irs-17 .irs-bar {background: #9de0ec}
+  .js-irs-18 .irs-single, .js-irs-18 .irs-bar-edge, .js-irs-18 .irs-bar {background: #9de0ec}
+  .js-irs-19 .irs-single, .js-irs-19 .irs-bar-edge, .js-irs-19 .irs-bar {background: #9de0ec}
+  
+  /*gei slider*/
+  .js-irs-20 .irs-single, .js-irs-20 .irs-bar-edge, .js-irs-20 .irs-bar {background: #ffc3bb}
+  
+  /*atk slider*/
+  .js-irs-21 .irs-single, .js-irs-21 .irs-bar-edge, .js-irs-21 .irs-bar {background: #ffaa6b}
+    
+ 
+/*box colors of pages---------------------------------------*/ 
+
+  .small-box.bg-yellow { background-color: #FCDB28 !important; } /*gini*/
+  .small-box.bg-orange { background-color: #ff8873 !important; } /*rosenbluth*/
+  .small-box.bg-red { background-color:    #ffc196 !important; } /*hoover*/
+  .small-box.bg-aqua { background-color:   #9de0ec !important; } /*aqua*/
+    
+  .small-box.bg-green { background-color:  #88fba7 !important; } /*simpson*/
+  .small-box.bg-black { background-color:  #bdbfc3 !important; } /*shannon*/
+    
+  .small-box.bg-lime { background-color:   #bee5df !important; } /*ratios*/
+    
+  .small-box.bg-fuchsia { background-color:#ffc3bb !important; } /*gei*/
+  .small-box.bg-purple { background-color: #ffaa6b !important; } /*atkinson*/
+    
+    
+  .box-title {
+      font-size: 18px;
+      font-weight: bold;
+  }
+  
+  /*------------------------------------------------------------*/
+  
+  .intro_text {
+      margin-left: 10%;
+  }
+  
+    /*lines*/
+  .hr_intro hr {
+      border-top: 1px solid #000000;
+  }
+  
+  .col-sm-2 {
+    width:20%;
+  }
+  
+  .metric_header {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 2;
+      margin-left: 5%;
+  }
+  
+  .metric_text {
+      font-size: 20px;
+      margin-right: 10%;
+      margin-left: 5%;
+
+  }
+  
+  .instructions {
+      font-size: 20px;
+      margin-right: 10%; 
+      margin-left: 5%;
+  }
+  
+  
+  p {
+      margin-bottom: 0px;
+  }
+  
+  /*general text of indices*/
+  .texts {
+      font-family: 'Source Sans Pro', sans-serif;
+      line-height: 250%;
+      color: black;
+  }
+  
+  
+  /*header of right well panel*/
+  .inter_header {
+      line-height: 2;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: underline;
+  }
+
+
+  /*backgroudn white*/
+  .bw {
+      background-color: white;
+  }
+  
+  /*scroll function*/
+  .sc {
+      overflow-y: scroll;
+  }
+  
+  .sc_x {
+      overflow-x: scroll;
+  }
+  
+  /*----------------*/
+  
+   /*tab titles*/
+  .tabbable a {
+      font-size: 14px;
+      color:black;
+  }
+  
+  /*first p in how to*/
+  #tocalc {
+      font-size: 20px;
+      line-height: 2;
+      font-weight: bold;
+  }
+  
+  .intro_ul ul {
+      font-size: 18px;
+  }
+  
+  .intro_ul ul li {
+    font-size: 14px;
+  }
+  
+  #included {
+    font-size: 18px; 
+    font-weight: bold;
+    padding-left: 20px;
+  }
+  /*sidebar*/
+  li {
+      font-size: 20px;
+      line-height: 2;
+  }
+  
+  
+  
+  .tab-content li {
+      font-size: 18px;
+      line-height: 2;
+  }
+  
+  
+  .tab-4979-1 {
+      font-size: 16px;
+      line-height: 1.8;  
+  }
+  
+  
+  /* Calc page*/
+  
+  .calc_header{
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: underline;
+  }
+  
+  .metricsheader {
+      padding-left: 15px;
+  }
+  
+  .cboxtitle {
+      font-weight: bold;
+  }
+  
+  .sc_calc {
+      overflow-y: scroll;
+      overflow-x: scroll;
+
+  }
+  
+  /*alpha and epsilon in metrics */
+  
+  
+  .special {
+      padding-left: 0px;
+  }
+  
+  .col-sm-12 {
+      padding-left: 0;
+  }
+  
+  .col-s-12#geinum div {
+      padding-left: 0px;
+      padding-right: 80px;
+  }
+  
+  
+  #atknum {
+      padding-left: 0px;
+      padding-right: 80px;
+  }
+  
+ #hhi_index, #ros_index, #own_ratio, #atk_index, #gei_index {
+   padding-left: 15px;
+ }
+  
+  /*lines*/
+  hr {
+      border-top: 1px solid #000000;
+      margin-left: 5%;
+      margin-right: 10%;
+  }
+  
+  #title_ref {
+    margin-left: 38px;
+  }
+  references p{
+      margin-bottom:5px;
+  }
+  
+  
+  
+  

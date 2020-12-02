@@ -2,13 +2,13 @@
 #-----------Prozente vom Anteil der Summe
 anteil_merkmal <- 
   
-    function(vector){
-        newvector <- c(length(vector))
-        newvector[1] = 0
-        for(i in 2:length(vector)){
-            newvector[i] <- vector[i]/sum(vector)*100
+    function(vec){
+        newvec <- c(length(vec))
+        newvec[1] = 0
+        for(i in 2:length(vec)){
+            newvec[i] <- vec[i]/sum(vec)*100
         }
-        return(round(newvector, digits=3))
+        return(round(newvec, digits=3))
 }
 
 
@@ -16,43 +16,43 @@ anteil_merkmal <-
 #-------------Kumulierte Prozente vom Anteil der Summe
 cum_anteil_merkmal <- 
   
-    function(vector){
-        newvector <- c(length(vector))
+    function(vec){
+        newvec <- c(length(vec))
         help <- 0
-        newvector[1] = 0
-        for(i in 2:length(vector)){
-          help <- help + vector[i]/sum(vector)*100
-          newvector[i] <- help
+        newvec[1] = 0
+        for(i in 2:length(vec)){
+          help <- help + vec[i]/sum(vec)*100
+          newvec[i] <- help
         }
-        return(round(newvector, digits=3))
+        return(round(newvec, digits=3))
 }
 
 
 #-------------Prozente vom Anteil der Tr?ger
 anteil_traeger <- 
   
-    function(vector){
-        newvector <- c(length(vector))
-        newvector[1] = 0
-        for(i in 2:length(vector)){
-          newvector[i] <- 1/(length(vector)-1)*100
+    function(vec){
+        newvec <- c(length(vec))
+        newvec[1] = 0
+        for(i in 2:length(vec)){
+          newvec[i] <- 1/(length(vec)-1)*100
         }
-        return(round(newvector, digits=3))
+        return(round(newvec, digits=3))
 }
 
 
 #------------Kumulierte Prozente vom Anteil der Tr?ger
 cum_anteil_traeger <- 
   
-    function(vector){
-        newvector <- c(length(vector))
+    function(vec){
+        newvec <- c(length(vec))
         help <- 0
-        newvector[1] = 0
-        for(i in 2:length(vector)){
-          help <- help + 1/(length(vector)-1)*100
-          newvector[i] <- help
+        newvec[1] = 0
+        for(i in 2:length(vec)){
+          help <- help + 1/(length(vec)-1)*100
+          newvec[i] <- help
         }
-        return(round(newvector, digits=3))
+        return(round(newvec, digits=3))
 }
 
 
@@ -102,7 +102,7 @@ finalDT_inc <-
   function(vec){
     if(length(vec) == 0) stop("no values in vector")
     if(sum(vec) == 0) stop("no positive value in vector")
-    if(any(is.negative(vec))) stop("negative value found")
+    if(any(is.negative(vec))) warning("negative hallo found")
     vec <- sort(vec)
     vec <- insert(vec, 1, 0)
     x <- data.table(amount = vec, 
@@ -124,7 +124,8 @@ finalDT_dec <-
     
     vec <- sort(vec, decreasing = T)
     vec <- insert(vec, 1, 0)
-    x <- data.table(amount = vec, 
+    x <- data.table(count = 1:length(vec)-1,
+                    amount = vec, 
                     shareunits = anteil_merkmal(vec), 
                     cumshareunits = cum_anteil_merkmal(vec), 
                     sharecomp = anteil_traeger(vec), 
@@ -133,13 +134,15 @@ finalDT_dec <-
     return(x)
   }
 
+#---------------------
+
 
 finalDT_inc_calc <- 
   
   function(vec){
     if(length(vec) == 0) stop("no values in vector")
     if(sum(vec) == 0) stop("no positive value in vector")
-    if(any(is.negative(vec))) stop("negative value found")
+    if(any(is.negative(vec))) stop("negative hallo found")
     vec <- sort(vec)
     vec <- insert(vec, 1, 0)
     x <- data.table("Value (Sorted)" = vec, 
@@ -152,5 +155,52 @@ finalDT_inc_calc <-
   }
 
 
+#-------------------
 
+finalDT_ratio_calc <- 
+  
+  function(vec){
+    df <- finalDT_inc(vec)
+    df <- df[-1, ]
+    df <- rbind(df, df)
+    
+    for(i in 1:(nrow(df)/2)){
+      #palma ratio
+      df$ratio[i] <- "Palma Ratio"
+      
+      if(ceiling(df$cumshareunits[i]) <= 41){
+        df$group[i] <- "bottom"
+      }else if(ceiling(df$cumshareunits[i]) <= 91){
+        df$group[i] <- "mid"
+      }else{
+        df$group[i] <- "top"
+      }
+    }
+    for(i in (nrow(df)/2+1):(nrow(df))){
+      #quintile ratio
+      df$ratio[i] <- "S80:S20 Ratio"
+      
+      if(ceiling(df$cumshareunits[i]) <= 21){
+        df$group[i] <- "bottom"
+      }else if(ceiling(df$cumshareunits[i]) <= 81){
+        df$group[i] <- "mid"
+      }else{
+        df$group[i] <- "top"
+      }
+    }
+
+
+    
+    df$ratio <- factor(df$ratio, levels = c("Palma Ratio", "S80:S20 Ratio"))
+    df$group <- factor(df$group, levels = c("top", "mid", "bottom"))
+    
+    return(df)
+    
+  }
+
+
+#------------------------------------------- Data for ratios
+
+
+foot <- "Copyright \u00a9 2020, Taric Leandro Lallai. All Rights Reserved."
 

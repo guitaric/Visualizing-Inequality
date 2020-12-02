@@ -15,9 +15,6 @@ underlorenz <-
       total = total + (1/length(sortedvec))*help
     }
     rtotal = round(total, digits=5)
-    # print("rect")
-    # print(rtotal)
-    # 
     
     #trianglepart
     total2 = 0
@@ -25,12 +22,8 @@ underlorenz <-
       total2 = total2 + ((1/length(sortedvec)*(i/sum(sortedvec))))/2
     }
     rtotal2 = round(total2, digits=5)
-    
-    # print("triangle")
-    # print(rtotal2)
-    
-    
-    return(rtotal +rtotal2)
+
+    return(rtotal + rtotal2)
   }
 
 
@@ -44,19 +37,8 @@ underlorenz2 <-
     if(length(unique(groups)) == 1) vec <- sort(vec)      #ascending order sorting only if groups are not set
     cumvec <- cumsum(vec/sum(vec))                        #cumulated value share
     cumgroups <- cumsum(groups/sum(groups))               #cumulated group share
-    if(any(cumvec>cumgroups)) stop("not ascending distribution") #makes sure that distribution with own groups is ascending - guarantees Lorenz curve under perfect equality
-    
-    # print("vec")
-    # print(vec)
-    # 
-    # print("groups")
-    # print(groups)
-    # 
-    # print("cumvec")
-    # print(cumvec)
-    # 
-    # print("cumgrousp")
-    # print(cumgroups)
+    if(any(cumvec>cumgroups)) stop("not ascending distribution") 
+    #makes sure that distribution with own groups is ascending - guarantees Lorenz curve under perfect equality
     
     triangles <-  0
     rectangles <- 0
@@ -65,9 +47,6 @@ underlorenz2 <-
     triangles <- 1/2 * sum((vec/sum(vec))*groups)
     
     #rectangles
-    # print((vec/sum(vec))*groups)
-    # print((cumvec/sum(cumvec))[1:length(vec)-1]*groups[2:length(vec)])
-    # print(cumvec[1:length(vec)-1]*groups[2:length(vec)])
     rectangles <- sum( cumvec[1:length(vec)-1]*groups[2:length(vec)] )
     
     return(triangles + rectangles)
@@ -98,7 +77,7 @@ gggini1 <-
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumul. Share of Carrier in %", y = "Cumul. Share of Total Income in %") +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
       theme_minimal() 
   }
 
@@ -117,7 +96,7 @@ gggini2 <-
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumul. Share of Carrier in %", y = "Cumul. Share of Total Income in %") +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
       theme_minimal()
   }
 
@@ -133,13 +112,13 @@ gggini3 <-
                    size = 0.8, linetype = 'longdash') +                            #diagonal of equal distribution
       geom_ribbon(aes(x = cumsharecomp, 
                       ymin = cumshareunits, 
-                      ymax = cumsharecomp), alpha = 0.5, fill = "#FCDB28") +             #area between actual and equal
+                      ymax = cumsharecomp), alpha = 0.9, fill = "#FCDB28") +             #area between actual and equal
       geom_point(size = 3) +
       geom_line(size = 0.8) +
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumul. Share of Carrier in %", y = "Cumul. Share of Total Income in %") +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
       theme_minimal()
   }
 

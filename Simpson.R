@@ -25,12 +25,14 @@ ggsimpson <-
   function(vec){
     
     ggplot(data = simpdat(vec), mapping = aes(x = xaxis, y = yaxis, color = group)) +
+      scale_color_manual(values=c("#339043", "#d62525", "#336bd4", "#e98302", "#385346"),
+                         labels = c("First Species", "Second Species", "Third Species", "Fourth Species", "Fifth Species")) +
+      guides(color = FALSE) +
       coord_cartesian(xlim =c(0, 1), ylim = c(0, 1)) +
       scale_x_continuous(breaks = c()) +
       scale_y_continuous(breaks = c()) +
       labs(x = "", y = "") +
-      
-      geom_point(size = 6, aes(shape = group)) +
+      geom_point(size = 6) +
       theme_classic()
     
   }

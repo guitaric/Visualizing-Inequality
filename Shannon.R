@@ -23,22 +23,11 @@ shannon <-
   }
 
 
-#----------------------------Shannon Plot
-ggshannon <-
-  
-  function(){
-    ggplot() +
-      geom_smooth(method = "lm", formula = y ~ (x^2))
-  }
-
-
-
 
 shannondat <- 
   
   function(vec, log = 'log nat'){
     
-    if(any(vec <=0)) stop("non positive number found")    #exception negative number in vector
     if(length(vec)==0) stop("empty vector")               #exception no value in vector
     if(sum(vec)==0) stop("no values")
     
@@ -54,9 +43,18 @@ shannondat <-
     
     result <- -(pi*lpi)
     
-    back <- data.table("Value" = as.integer(vec), 
-                       "Share" = round(pi,4), 
-                       "Logarithm of Share" = round(lpi, 4), 
-                       "Negative Product of Share and log" = round(result, 4))
-    return(round(back, 4))
+    letcol <- c('A','B','C','D','E','F')
+    
+    back <- data.table(letcol,
+                       number = as.integer(vec), 
+                       round(pi,3), 
+                       round(lpi, 3), 
+                       round(result, 3))
+    
+    back <-  back[number != 0]
+    
+    colnames(back) <- c("Letter", "Number of occurence", "Share of Occurence 'pi'",
+                        "Logarithm of Share 'l(pi)'", "Negative Product of Share and log '-(pi*l(pi))'")
+    
+    return(back)
   }
