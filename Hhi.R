@@ -29,7 +29,7 @@ gghhi <-
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Units in %") +
       theme_minimal() 
   }
 

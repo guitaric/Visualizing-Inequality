@@ -2,7 +2,6 @@ library(shiny)
 library(shinydashboard)
 library(shinydashboardPlus)
 library(shinyWidgets)
-library(shinyjs)
 library(foreign)
 library(here)
 library(ggplot2)
@@ -11,7 +10,16 @@ library(R.utils)
 library(stringr)
 library(schoolmath)
 library(entropy)
+library(openxlsx)
+library(tibble)
 library(Hmisc)
+library(Cairo)
+
+library(DescTools)
+library(REAT)
+library(vegan)
+library(IC2)
+options(shiny.usecairo=T)   #better looking of plots
 
 #----------------------------------Sources
 source('vectortoDT.R')
@@ -50,31 +58,31 @@ header <- dashboardHeader(title = "Visualizing Inequality", titleWidth = 350)
 
 sidebar <- 
 
-    dashboardSidebar(
+    dashboardSidebar(width = 350,
       sidebarMenu(
         menuItem("Introduction", tabName = "intro"),
-        menuItem("Indices", tabName = "ind", startExpanded = F,
-                 menuItem("Indices of Deviation", tabName = "model1", startExpanded = F,
+        menuItem("Measures", tabName = "ind", startExpanded = F,
+                 menuItem("Measures of Deviation", tabName = "model1", startExpanded = F,
                           menuItem("Gini Index", tabName = "gini"),
-                          menuItem("Rosenbluth Index", tabName = "rosenbluth"),
-                          menuItem("Hoover Index", tabName = "hoover")
+                          menuItem("Hoover Index", tabName = "hoover"),
+                          menuItem("Rosenbluth Index", tabName = "rosenbluth")
                  ),
-                 menuItem("Indices of Combinatorics", tabName = "model2",
-                          menuItem("Herfindahl-Hirschmann Index", tabName = "herfindahl"),
+                 menuItem("Measures of Combinatorics", tabName = "model2",
+                          menuItem("Herfindahl-Hirschman Index", tabName = "herfindahl"),
                           menuItem("Simpson Index", tabName = "simpson")
                  ),
-                 menuItem("Indices of Entropy", tabName = "model3",
+                 menuItem("Measures of Entropy", tabName = "model3",
                           menuItem("Shannon Index", tabName = "shannon"),
-                          menuItem("Entropy Metrics", tabName = "entropy")
+                          menuItem("Generalized Entropy Index", tabName = "entropy")
                           
                  ),
-                 menuItem("Indices of Social Welfare", tabName = "model4",
+                 menuItem("Measures of Social Welfare", tabName = "model4",
                           menuItem("Atkinson Index", tabName = "atkinson")
                  ),
-                 menuItem("Ratios", tabName = "ratios")
+                 menuItem("Tail Ratios", tabName = "ratios")
         ),
         menuItem("Calculate", tabName = "calc"),
-        menuItem("Documentation", tabName = "doc")
+        menuItem("References", tabName = "doc")
       )
     )
 

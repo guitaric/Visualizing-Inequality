@@ -8,15 +8,17 @@ simpsonpage <-
                wellPanel(class = "bw texts",
                   div(class = "metric_header", "Simpson Index"),
                   div(class = "metric_text",
-                      p("The Simpson index is strongly related to the Herfindahl-Hirschmann index but is mainly used to describe (bio-)diversity (Simpson, 1949; Hill, 1963; Jost, 2006) and, hence, requires only data at a nominal level of measurement. For large groups, the HHI and the Simpson index are almost identical. For small groups, however, the two indices vary significantly from each other. "),
-                      p("The interpretation of the index is defined as the probability that two randomly selected individuals of a total population belong to the same group and is bounded from 0 (0 %) to 1 (100 %). Accordingly, the complementary probability (1-S) can be seen as the probability that two randomly selected individuals do not belong to the same group. This complementary probability is referred to the Gini-Simpson index, also referred to as the probability of interspecific encounter or PIE (Hurlbert, 1971), the Gibbs-Martin index (Gibbs & Martin, 1962) or the Blau index (Tarigan et al., 2018). Since the Simpson index is a measure of equality and not of inequality, the inverse Simpson can be calculated by the reciprocal value of S, namely 1/S. The inverse Simpson index is therefore a measure of inequality and ranges from 1 to infinity.")
+                      p("The Simpson index (Simpson, 1949) quantifies the probability that two randomly selected units belong to the same component. It is based on an urn model without replacement (i.e., drawing random units decreases the components\u0027 unit share). The Simpson index is a measure of absolute inequality and intended for categorical variables. It converges in value with the Herfindahl-Hirschman index for large N (the total number of units). For small N, the Simpson index is the appropriate and correct measure."),
+                      p("The complementary probability of the Simpson index (1 \u002D S), denominated as Gini-Simpson index, can be interpreted as the probability that two randomly selected units belong to different components. The inverse Simpson index (i.e., its reciprocal value, 1/S) maps the values of the Simpson index onto the interval [1, \u221E], with positive infinity corresponding to a probability of 0 in the Simpson index and 1 to a probability of 1. The Gini-Simpson index and the inverse Simpson index are measures of equality.")
                   ),
+                  
                       br(),
                       hr(),
                       br(),
                   div(class = "instructions",
-                      p("The effect on the Simpson index can be observed, by playing with the inputs on the right side. These group indices are sensitive to the absolute amount of group members. By having one individual for each species, the probability of choosing two individuals of the same species is 0, while it is higher when having two per species. Also, the so-called richness influences the index. The higher the number of groups to compare, the lower is the probability of randomly choosing two of the same group. "),
-                      p("See for yourself how the number of groups and the number within each group affect the three diversity measures."),
+                      p("On the right side you can provide names and unit counts for up to five variable values of a categorical variable. The units represent the counts of the variable values of the categorical variable, the variable values themselves are the components."),
+                      p("Play with the inputs. The index values are sensitive to both the number of components and their corresponding numbers of units. With one unit per component, the probability of choosing two units from the same component is 0. This probability only increases with higher unit numbers. Also, the more components there are, the lower is the probability of randomly choosing two units from the same component."),
+                      p("See for yourself how the numbers of components and units within each component affect the values of these three measures."),
                       br(),
                       br()
                   )
@@ -24,21 +26,21 @@ simpsonpage <-
         ),
         column(width = 4,
                wellPanel(class = "bw",
-                 div(class = "inter_header", "Put in values for different groups"),
+                 # div(class = "inter_header", "Put in values for different variable values"),
                  fluidRow(
                    column(width = 6, 
-                          textInput("group1", "First  Species (green)", value = "goldfinch"),
-                          textInput("group2", "Second Species (red)", value = "sparrow"),
-                          textInput("group3", "Third Species (blue)", value = "bullfinch"),
-                          textInput("group3", "Fourth Species (yellow)", value = ""),
-                          textInput("group3", "Fifth Species (grey)", value = "")
+                          textInput("group1", "First  Component (green)", value = ""),
+                          textInput("group2", "Second Component (red)", value = ""),
+                          textInput("group3", "Third Component (blue)", value = ""),
+                          textInput("group3", "Fourth Component (yellow)", value = ""),
+                          textInput("group3", "Fifth Component (grey)", value = "")
                    ),
                    column(width = 6, 
-                          numericInput("sim_nr1", "Count", value = 6, min = 0, max = 10),
-                          numericInput("sim_nr2", "Count", value = 5, min = 0, max = 10),
-                          numericInput("sim_nr3", "Count", value = 3, min = 0, max = 10),
-                          numericInput("sim_nr4", "Count", value = 0, min = 0, max = 10),
-                          numericInput("sim_nr5", "Count", value = 0, min = 0, max = 10)
+                          numericInput("sim_nr1", "Count", value = 70, min = 0, max = 100),
+                          numericInput("sim_nr2", "Count", value = 35, min = 0, max = 100),
+                          numericInput("sim_nr3", "Count", value = 20, min = 0, max = 100),
+                          numericInput("sim_nr4", "Count", value = 10, min = 0, max = 100),
+                          numericInput("sim_nr5", "Count", value = 5, min = 0, max = 100)
                    )
                     )
                ),

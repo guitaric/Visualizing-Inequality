@@ -1,6 +1,7 @@
 #-----------------Read Data
 
 datatype <- reactive ({ 
+  
   input$file
   isolate(input$csv_or_sav) 
 })
@@ -9,6 +10,7 @@ datatype <- reactive ({
 
 data <- reactive({
   file1 <- input$file
+  
   if(is.null(file1)){ return() }
   
   if(datatype() == "csv"){
@@ -20,7 +22,7 @@ data <- reactive({
       return(tempcsv)
 
   }
-  else{
+  else if(datatype() == "sav"){
       tempsav <- read.spss(file = file1$datapath)
       tempsav <- as.data.frame(tempsav)
       return(tempsav)
@@ -48,21 +50,20 @@ output$tb <-
                   tags$ul(
                       tags$li("In case your file is a csv:"),
                       tags$ul(
-                          tags$li("Make sure that the distribution to be calculated is stored in a column"),
+                          tags$li("Make sure that the data are stored in a column"),
                           tags$li("Choose the correct separator of the file"),
                           tags$li("Specify, if the file has a header or not")
                       ),
-                      tags$li("Check in the Tab 'Data' if the data is correctly read and formatted")
+                      tags$li("Check in the tab 'Data' if the data is correctly read and formatted")
                   ),
                   tags$li("Select the correct column (Make sure that the column has numeric values!)",
                           tags$ul(
-                            tags$li("Remove negative values if found")
+                            tags$li("Remove negative values if present")
                           )
                   ),
                   tags$li("Select the plots to be displayed"),
-                  tags$li("Choose the number of digits the metrics shall be rounded"),
-                  tags$li("If needed, print the currently displayed plot as a .png file and download the table 
-                           containing all metrics for the currently selected distribution, by clicking the two Download Buttons")
+                  tags$li("Select the number of digits for the measures"),
+                  tags$li("If desired, print the currently displayed plot as a .png file and download the table containing all selected metrics for the current data by clicking the two download buttons")
                 )
               )
             )
@@ -71,7 +72,7 @@ output$tb <-
       tabPanel("Data", wellPanel(class = "bw", tableOutput("table") ) ),
       tabPanel("Summary", wellPanel(class = "bw", tableOutput("sum") ) ),
       tabPanel("Table of Distribution", wellPanel(class = "bw", tableOutput("t_dist") ) ),
-      tabPanel("Metrics", wellPanel(class = "bw", tableOutput("indices") ) )
+      tabPanel("Measures", wellPanel(class = "bw", tableOutput("indices") ) )
     )
   })
 

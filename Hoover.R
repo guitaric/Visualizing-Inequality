@@ -4,7 +4,7 @@ hoover <-
   
   function(vec, corr = F){
     if(any(vec<0)) stop("negative number found")    #exception negative number in vector
-    if(length(vec)==0) stop("empty vector")         #exception no value in vector
+    if(length(vec)<2) stop("more than one value needed")         #exception no value in vector
     
     if(corr == F) back <- (1/2)*sum(abs(vec/sum(vec)-(1/length(vec))))  #hoover equation
     else back <- sum(abs(vec/sum(vec)-(1/length(vec))))/(2*(1-(1/length(vec))))  #hoover equation
@@ -39,7 +39,7 @@ gghoover <-
                 geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
                 scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
                 scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-                labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
+                labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Units in %") +
                 theme_minimal()
     
     if(exists("xloc_end")){ back <- back +

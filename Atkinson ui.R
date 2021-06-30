@@ -6,16 +6,15 @@ atkinsonpage <-
          wellPanel(class = "bw texts",
              div(class = "metric_header", "Atkinson Index"),
              div(class = "metric_text",
-                 p("The Atkinson index is a measure for measuring income inequality (Atkinson, 1970; Atkinson, 1987, Atkinson, 2008). It is derived from the Social Welfare Model, i.e. when calculating an index of inequality, this model takes into account not only the given distribution of income, but also the social welfare of a population. This is done incorporating a parameter called epsilon. This parameter represents the inequality aversion of the population and can range from 0 (no inequality aversion) to \u221e (maximal inequality aversion); it is recommended to be set between 1 and 2 (Atkinson, 1970). Setting epsilon to 0, i.e., no inequality in the population at all, then every possible distribution, whether perfectly equal or unequal, results in an Atkinson index of 0. As the epsilon increases, the Atkinson index also increases, but only if the distribution is not perfectly equal."),
-                 p("The index is interpreted as follows: If the distribution has an Atkinson index of 0.4, only 60% (= (1 - 0.4) *100%) of the total income of the population, when equally distributed, is necessary to achieve the same amount of social welfare. Hence, in the case of equal distributions, the index is 0, as any reduction in the already equally distributed income would result in a loss of social welfare. Conversely, in a perfectly unequal society, where one person earns the entire income herself or himself, 0% would achieve the same level of social welfare, since social welfare is already at its lowest.")
+                 p("The Atkinson index (Atkinson, 1970, 1987, 2008) is a measure of income inequality with intimate links to the generalized entropy index. It is derived from the so-called social welfare model, which is specifically concerned with the effects of redistributing units from the high range of the distribution to the low range. Similar to the generalized entropy index, the Atkinson index is characterized by an additional parameter, in this case \u03F5 (\u0027inequality aversion\u0027). Unlike \u03B1, \u03F5 is restricted to nonnegative values. The two parameters are related, as are the generalized entropy index and the Atkinson index themselves. Atkinson (1970) recommended to set \u03F5 values between 1.5 and 2 (which results in \u03B1 values between -0.5 and -1). Setting \u03F5 to 0 results in an Atkinson index of 0 for all distributions. Otherwise, the Atkinson index increases with increasing \u03F5, given that the distribution is not perfectly equal. The parameter \u03F5 is a fine-tuning parameter like \u03B1, but allows to \u0022zoom in\u0022 only into the low range of the distribution (i.e., it assigns more and more weight to redistribute units from the high range to the low range)."),
+                 p("In its original conceptualization and application, the Atkinson index is meant to be interpreted in relation to a social welfare function and the \u0027welfare equivalent equally distributed income.\u0027 This common standard depends on the value of the Atkinson index itself and on the choice of \u03F5. For \u03F5 = 0, the Atkinson index is 0 and the common standard is equal to the average of units. For all other cases, the Atkinson index quantifies the fraction of units of the total unit sum, which is needed to reach this common standard for each component, if units were distributed equally. For example, with an Atkinson index of 0.4, the common standard could be reached for each component with only 60% (= [1-0.4]\u002A100%) of the total unit sum, if units were distributed equally. In the case of an equal unit distribution, the Atkinson index is 0, and the unit share of every component already corresponds to the common standard.")
                    ),
+             
                  br(),
                  hr(),
                  br(),
              div(class = "instructions",
-                 p("Choose between different distributions on the right side and discover the effects of the parameter 
-                   epsilon (from 0 to 3) on the Atkinson index. Additionally, you can set the sliders on specific parameter 
-                   values to have the exact Atkinson index."),
+                 p("Choose one of the eight sample distributions and discover the effects of the parameter \u03F5 (from 0 to 3) on the Atkinson index. Additionally, you can select specific \u03F5 values with the slider to compute the corresponding generalized entropy index."),
                  br(),
                  br()
              )
@@ -34,7 +33,7 @@ atkinsonpage <-
                                                        "G: 200, 400, 600, 800, 1000",
                                                        "H: 1000, 0, 0, 0, 0")),
                    hr(),
-                   box(title = "The Atkinson Index for different epsilon", width = 12, solidHeader = T, plotOutput("atk_plot"))
+                   box(title = "The Atkinson Index for different values of epsilon", width = 12, solidHeader = T, plotOutput("atk_plot"))
                  )
             ),
             wellPanel(class = "bw",  

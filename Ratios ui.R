@@ -6,20 +6,16 @@ ratiopage <-
              wellPanel(class = "bw texts",
                  div(class = "metric_header", "Ratios"),
                  div(class = "metric_text",
-                     p("Another way to capture the degree of inequality is by comparing the share of the two tail sections of the distribution. This is one of the simplest ways to measure inequality but ignores the middle section of the distribution. A widely known ratio, the Palma ratio (Cobham, 2014; United Nations, 2019) is often used to assess the distribution of the gross national income in a country. It is simply the ratio between the unit share of 10% of the top-earners divided by the unit share of 40% of lowest earners. In practice, the Palma Ratio in Europe tends to vary between 0.8 and 1.8 (OECD, 2011). A Palma Ratio of 1.8 indicates that the top 10% have 1.8-times as much income as the bottom 40%."),
-                     p("Another ratio called S80:S20 compares the share of the richest fifth with the share of the poorest fifth of the population."),
-                     p("Moreover, percentile ratios compare specific percentiles of a distribution. The P90:P10 Ratio compares the value at the 90th percentile with the value at the 10th percentile. Similarly, the P50:P10 relates the median value with the 10th percentile.")
+                     p("One of the simplest ways to measure inequality is to compare the shares of the two tail sections of the unit distribution exclusively, while ignoring its middle section. This provides measures of inequality which are specifically sensitive to any differences located in the distributional tails (Voracek et al., 2013) and more informative of the shape of the unit distribution than mere measures of area, like the Gini index. Distributional tail ratios are intended for metric variables. When the number of components is small, they should be interpreted with caution, because of possible effects due to rounding errors (e.g., imagine estimating the richest 20% based on merely three components)."),
+                     p("The Palma ratio (Palma, 2011) is widely used to assess gross national income distributions. It is the ratio of the unit shares of the top 10% to the bottom 40% of the unit distribution. Applied to the gross national income, the Palma ratio tends to vary between 0.8 and 1.8 across Europe (OECD, 2011). A value of 1.8 indicates that the top 10% possess 1.8 times the units that the bottom 40% do. The S80:S20 ratio compares the share of the top fifth with the share of the bottom fifth of the unit distribution. It follows the logic of the Pareto distribution (Pareto, 1896) and its associated Pareto principle (known as the 80-to-20 rule, or the principle of factor sparsity: for many real-world phenomena, about 80% of effects or consequences have been observed to be due to about 20% of the causes or sources). Percentile ratios compare selected percentiles of the unit distribution. The P90:P10 ratio compares the 90th percentile with the 10th percentile, whereas the P50:P10 relates the median (50th percentile) to the 10th percentile.")
                  ),
+                 
                      br(),
                      hr(),
                      br(),
                  div(class = "instructions",
-                     p("On the right side you can choose between different sample data from the real world. 
-                       Besides the common application to financial topics, other areas of application can be
-                       considered. E.g. you can compare the suicide rate, the Intentional homicide rate or use 
-                       the all-time medal table of the Olympic Games of all countries for the visualization."),
-                     p("After choosing the data, you can see the four different Ratios in a bar chart. You can 
-                       also create your own ratio by setting the \u0027Top _ %\u0027 and the \u0027Bottom _ %\u0027 you want to relate to each other. "),
+                     p("Choose one of the five real-world sample data. The data pertain to UK income tax (Government Digital Service United Kingdom, 2020), global GDP (United Nations, 2019a), global suicide rates (per 100,000; WHO, 2018), global intentional homicide rates (per 100,000; United Nations, 2019b), and all-time medal table of the Olympic Games of all countries (International Olympic Committee, 2018) for visualization."),
+                     p("After choosing the data, three of the ratios are presented in a bar chart. You can also create your own ratio by setting the 'Top _ %' and the 'Bottom _ %' you want to relate to each other."),
                      br(),
                      br()
                  )

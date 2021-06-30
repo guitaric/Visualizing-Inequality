@@ -6,15 +6,16 @@ geipage <-
              wellPanel(class = "bw texts",
                        div(class = "metric_header", "Generalized Entropy Index"),
                        div(class = "metric_text",
-                           p("The generalized entropy also uses the logarithm to assess the inequality of a distribution (Cowell, 2011). The unique characteristic of this index lies in its additional parameter alpha. This parameter allows to finetune the sensitivity of the index to a specified area of interest. The range of the alpha parameter is [-\u221e, +\u221e]. The higher alpha, i.e., the more positive, the more sensitive is the index at the high (or rich) part of the distribution. Conversely, the lower alpha, i.e., the more negative, the more sensitive is the index at the low part of the distribution. Notably, the generalized entropy index with alpha = 0 corresponds to the mean log deviation and with alpha = 1 to the Theil index (Cowell, 2011).")
+                           p("The generalized entropy index (Shorrocks, 1980) provides a generalization of the Shannon index for metric variables and contains as special cases the Theil index and the mean log deviation. The generalized entropy index compares the number of units of each individual component to the mean of all components and quantifies the distance between the highest possible entropy (i.e., the uniform distribution of units over components) and the observed entropy. It thus measures inequality (in the sense of redundancy), rather than equality (such as the Shannon index)."),
+                           p("The unique characteristic of the generalized entropy index lies in its parameter \u03B1. Setting \u03B1 = 1 yields the Theil index (Theil, 1967). Setting \u03B1 = 0 yields the mean log deviation (i.e., the average of the deviations of the log units to their log mean; Theil, 1967). More generally, the value of \u03B1 fine-tunes the generalized entropy index to specified ranges of the unit distribution with regards to the effects of hypothetical unit transfers. That is, the more positive \u03B1, the more sensitive the index is to inequality at the high range of the distribution; conversely, the more negative \u03B1, the more sensitive it is to inequalities occurring at the low range of the distribution. Thus, the Theil index is more sensitive to inequalities at the high range of the distribution than the mean log deviation."),
+                           p("to inequalities at the high range of the distribution than the mean log deviation. 
+The generalized entropy index provides a convenient way to differentially weigh inequality at (and, in a way, to \u0022zoom into\u0022) the high vs. low ranges of the unit distribution. Consequently, it allows for a more fine-grained inspection of inequality than merely area-based measures (such as the Gini index) are capable of.")
                    ),
                    br(),
                    hr(),
                    br(),
                div(class = "instructions",
-                   p("By choosing one of the sample distributions, the generalized entropy indices for all alphas 
-                     between -4 and 4 (in 0.5 steps) are displayed in the bar plot. Additionally, you can set 
-                     the slider on specific parameter values to have the exact generalized entropy index."),
+                   p("Choose one of the eight sample distributions. The generalized entropy indices for all \u03B1 values between -4 and 4 (in 0.5 steps) are displayed in the bar plot. Additionally, you can select specific α values with the slider to compute the corresponding generalized entropy index."),
                    br(),
                    br()
                )
@@ -26,13 +27,13 @@ geipage <-
                fluidRow(
                  selectInput("selectdist_ent", "", c("A: 110, 120, 130, 140, 150, 500", "B: 100, 210, 220, 230, 240, 250", "C: 200, 200, 200, 200, 200, 200, 200", "D: 110, 110, 120, 120, 130, 130, 140, 140, 150, 150, 500, 500", "E: 100, 100, 210, 210, 220, 220, 230, 230, 240, 240, 250, 250", "F: 100, 1100, 1200, 1300, 1400, 1500", "G: 220, 240, 260, 280, 1000", "H: 200, 420, 440, 460, 480, 500")),
                  hr(),
-                 box(title = "How the Parameter alpha is affecting the Generalized Entropy Index", 
+                 box(title = "The Generalized Entropy Index for different values of alpha", 
                      width = 12, solidHeader = T, plotOutput("gei_plot"))
                  )
              ),
              wellPanel(class = "bw",  
                  fluidRow(
-                   sliderInput("gei1", "Choose Alpha", min = 0, max = 2, step = 0.25, value = 1)
+                   sliderInput("gei1", "Choose Alpha", min = -4, max = 4, step = 0.25, value = 1)
                  )
                        
              ),

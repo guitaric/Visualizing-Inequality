@@ -51,8 +51,8 @@ ggrosenbluth1 <-
       geom_point() +
       coord_cartesian(xlim =c(0, length(vec)), ylim = c(0, 100)) +
       geom_segment(aes(x = 0, y = 0, xend = 120, yend = 0), size = 0.3) +
-      labs(x = "Companies by Market Share in Descending Order (Cumulated)", 
-           y = "Cumul. Market Share in %") +
+      labs(x = "Cumulated Component Share in %", 
+           y = "Cumulated Share of Total Units in %") +
       theme_minimal()
   }
 
@@ -70,8 +70,8 @@ ggrosenbluth2 <-
                    size = 0.8, linetype = 'longdash', color = '#ff8873') +  #diagonal of equal distribution
       coord_cartesian(xlim =c(0, length(vec)), ylim = c(0, 100)) +
       geom_segment(aes(x = 0, y = 0, xend = length(vec), yend = 0), size = 0.3) +
-      labs(x = "Companies by Market Share in Descending Order (Cumulated)", 
-           y = "Cumul. Market Share in %") +
+      labs(x = "Cumulated Component Share in %", 
+           y = "Cumulated Share of Total Units in %") +
       theme_minimal()
   }
 
@@ -92,7 +92,7 @@ ggrosenbluth3 <-
       geom_segment(aes(x = 0, y = 0, xend = length(vec), yend = 0), size = 0.3) +
       geom_segment(aes(x = 0, y = 0, xend = 0, yend = 100), size = 0.5) +
       geom_segment(aes(x = 0, y = 100, xend = length(vec), yend = 100), size = 0.5) +
-      labs(x = "Companies by Market Share in Descending Order (Cumulated)", 
-           y = "Cumul. Market Share in %") +
+      labs(x = "Cumulated Component Share in %", 
+           y = "Cumulated Share of Total Units in %") +
       theme_minimal()
   }

@@ -16,7 +16,7 @@ calcpage <-
                                        choices = c("csv", "sav"), selected = "csv")
                           ),
                    column(width = 6, 
-                          fileInput("file","Upload a file"), 
+                          fileInput("file","Upload a file", accept=c('.csv', '.sav')), 
                           )
                  ),
                  tags$hr(),
@@ -87,47 +87,51 @@ calcpage <-
              fluidRow(
              
                 #Metrics
-                div(class = "calc_header metricsheader", "Metrics"),
+                div(class = "calc_header metricsheader", "Measures"),
                 br(),
                 column(width = 3, 
-                   h5(strong("Indices of Deviation")),
-                   checkboxInput(inputId = 'showgini', label = 'Gini', value = F),
-                   checkboxInput(inputId = 'showcorrgini', label = 'Corrected Gini', value = T),
-                   checkboxInput(inputId = 'showrosen', label = 'Rosenbluth', value = T),
-                   checkboxInput(inputId = 'showhoover', label = 'Hoover', value = F),
-                   checkboxInput(inputId = 'showcorrhoover', label = 'Corrected Hoover', value = T)
+                   h5(strong("Based on the Deviations Model")),
+                   checkboxInput(inputId = 'showgini', label = 'Gini index', value = F),
+                   checkboxInput(inputId = 'showcorrgini', label = 'Corrected Gini index', value = T),
+                   checkboxInput(inputId = 'showrosen', label = 'Rosenbluth index', value = T),
+                   checkboxInput(inputId = 'showhoover', label = 'Hooverindex', value = F),
+                   checkboxInput(inputId = 'showcorrhoover', label = 'Corrected Hoover index', value = T)
                 ),
                 column(width = 3,
-                   h5(strong("Indices of Probability")),
-                   checkboxInput(inputId = 'showhhi', label = 'Herfindahl-Hirschmann', value = T),
-                   checkboxInput(inputId = 'showsim', label = 'Simpson', value = T),
-                   checkboxInput(inputId = 'showginisim', label = 'Gini-Simpson', value = F),
-                   checkboxInput(inputId = 'showinvsim', label = 'Inverse Simpson', value = F)
+                   h5(strong("Based on the Combinatorics Model")),
+                   checkboxInput(inputId = 'showhhi', label = 'Herfindahl-Hirschman index', value = T),
+                   checkboxInput(inputId = 'showsim', label = 'Simpson index', value = T),
+                   checkboxInput(inputId = 'showginisim', label = 'Gini-Simpson index', value = F),
+                   checkboxInput(inputId = 'showinvsim', label = 'Inverse Simpson index', value = F)
                        
                 ),
                 column(width = 3,
-                   h5(strong("Indices of Entropy")),
-                   checkboxInput(inputId = 'showshalog2', label = 'Shannon (log2)', value = T),
-                   checkboxInput(inputId = 'showshaln', label = 'Shannon (ln)', value = F),
-                   checkboxInput(inputId = 'showshalog10', label = 'Shannon (log10)', value = F),
-                   checkboxInput(inputId = 'showge', label = 'Generalized Entropy', value = T),
+                   h5(strong("Based on the Entropy Model")),
+                   checkboxInput(inputId = 'showshalog2', label = 'Shannon (log2) index', value = T),
+                   checkboxInput(inputId = 'showshaln', label = 'Shannon (ln) index', value = F),
+                   checkboxInput(inputId = 'showshalog10', label = 'Shannon (log10) index', value = F),
+                   checkboxInput(inputId = 'showge', label = 'Generalized Entropy index', value = T),
                    column(width = 12,
                           div(class = "special", id = 'geinum',
-                            selectInput( inputId = 'geinum', label = "gei's alpha", choices = c(-2, -1, 0, 1, 2))
+                            # selectInput( inputId = 'geinum', label = "alpha", choices = c(-2, -1, 0, 1, 2))
+                            numericInput(inputId = 'geinum', label = 'alpha', 
+                                         value = 3, min = -100, max = 100, step = 0.1)
                           )
                    )
                 ),
                 column(width = 3,
-                   h5(strong("Indices of Social Welfare")),
-                   checkboxInput(inputId = 'showatk', label = 'Atkinson', value = T),
+                   h5(strong("Based on the Social Welfare Model")),
+                   checkboxInput(inputId = 'showatk', label = 'Atkinson index', value = T),
                    column(width = 12,
                           div(class = "special", id = 'atknum',
-                            selectInput(inputId = 'atknum', label = "atkinson's epsilon", choices = c(0, 1, 2, 3))
+                            # selectInput(inputId = 'atknum', label = "epsilon", choices = c(0, 1, 2, 3))
+                            numericInput(inputId = 'atknum', label = 'epsilon (must be \u2265 0)', 
+                                         value = 2, min = 0, max = 100, step = 0.1)
                           )
                    ),
                    br(),
                    br(),
-                   h5(strong("Ratios")),
+                   h5(strong("Tail Ratios")),
                    checkboxInput(inputId = 'showpalma', label = 'Palma', value = T),
                    checkboxInput(inputId = 'showquint', label = 'S20-S20', value = T),
                    checkboxInput(inputId = 'showdec', label = 'P90-P10', value = F),

@@ -1,22 +1,4 @@
-library(shiny)
-library(shinydashboard)
-library(shinydashboardPlus)
-library(shinyWidgets)
-library(shinyjs)
-library(here)
-library(foreign)
 
-library(ggplot2)
-library(plotly)
-library(data.table)
-library(R.utils)
-library(stringr)
-library(schoolmath)
-library(openxlsx)
-library(tibble)
-library(Cairo)
-library(Hmisc)
-options(shiny.usecairo=T)   #better looking of plots
 
 #----------------------------------Sources
 source('vectortoDT.R')

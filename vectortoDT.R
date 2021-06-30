@@ -202,5 +202,5 @@ finalDT_ratio_calc <-
 #------------------------------------------- Data for ratios
 
 
-foot <- "Copyright \u00a9 2020, Taric Leandro Lallai. All Rights Reserved."
+foot <- " CC BY-NC \u00a9 2021"
 

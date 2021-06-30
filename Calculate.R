@@ -34,6 +34,28 @@ ggrosenbluth1calc <-
   }
 
 
+gggini3calc <- 
+  
+  function(vec){
+    
+    ggplot(data = finalDT_inc(vec), mapping = aes(x = cumsharecomp, y = cumshareunits)) + 
+      geom_segment(aes(x = 0, y = 0, xend = 100, yend = 0), size = 0.3) +
+      geom_segment(aes(x = 100, y = 0, xend = 100, yend = 100), size = 0.3) +
+      geom_segment(aes(x = 0, y = 0, xend = 100, yend = 100), 
+                   size = 0.8, linetype = 'longdash') +                            #diagonal of equal distribution
+      geom_ribbon(aes(x = cumsharecomp, 
+                      ymin = cumshareunits, 
+                      ymax = cumsharecomp), alpha = 0.9, fill = "#FCDB28") +             #area between actual and equal
+      geom_point(size = 3) +
+      geom_line(size = 0.8) +
+      coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
+      scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+      scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Units in %") +
+      theme_minimal()
+  }
+
+
 
 
 ggrosenbluth3calc <- 
@@ -109,7 +131,7 @@ gghhicalc <-
 gggeicalc <- 
   
   function(vec){
-    ggplot(data = ge_dat(vec), mapping = aes(x = AlphaValue, y = GeneralEntropy)) + 
+    ggplot(data = gei_dat(vec), mapping = aes(x = AlphaValue, y = GeneralEntropy)) + 
       geom_col(width = 0.3, fill = "#ffc3bb") +
       labs(x = "Alpha Value", y = "Generalized Entropy Index") +
       scale_x_continuous(breaks = c(-4, -2, 0, 2, 4)) +
@@ -150,33 +172,33 @@ indextable <-
   
   function(v, rdigit = 3){
     
-    ginirow <- c("Gini index", "Inequality", "ordinal/rational", "0", "1-(1/k)", gini(v))
-    corrginirow <- c("Corrected Gini index", "Inequality", "ordinal/rational", "0", "1", gini(v, corr = T))
-    hooverrow <- c("Hoover index", "Inequality", "ordinal/rational", "0", "1-(1/k)", hoover(v))
-    corrhooverrow <- c("Corrected Hoover index", "Inequality", "ordinal/rational", "0", "1", hoover(v, corr = T))
-    rosenrow <- c("Rosenbluth index", "Inequality", "ordinal", "1/k", "1", rosenbluth(v))
+    ginirow <- c("Gini index", "Inequality", "Categorical, metric", "0", "1-(1/k)", gini(v))
+    corrginirow <- c("Corrected Gini index", "Inequality", "Categorical, metric", "0", "1", gini(v, corr = T))
+    hooverrow <- c("Hoover index", "Inequality", "Categorical, metric", "0", "1-(1/k)", hoover(v))
+    corrhooverrow <- c("Corrected Hoover index", "Inequality", "Categorical, metric", "0", "1", hoover(v, corr = T))
+    rosenrow <- c("Rosenbluth index", "Inequality", "Categorical, metric", "1/k", "1", rosenbluth(v))
 
-    hhirow <- c("Herfindahl-Hirschmann index", "Inequality", "nominal", "1/k", "1", hhi(v))
-    simpsonrow <- c("Simpson index", "Inequality", "nominal",  "0", "1", simpson(v))
-    ginisimpsonrow <- c("Gini-Simpson index", "Equality", "nominal", "0", "1", simpson(v, type = "ginisim"))
-    invsimpsonrow <- c("Inverse Simpson index", "Equality", "nominal", "0", "inf", simpson(v, type = "invsim"))
+    hhirow <- c("Herfindahl-Hirschmann index", "Inequality", "Categorical, metric", "1/k", "1", hhi(v))
+    simpsonrow <- c("Simpson index", "Inequality", "Categorical",  "0", "1", simpson(v))
+    ginisimpsonrow <- c("Gini-Simpson index", "Equality", "Categorical", "0", "1", simpson(v, type = "ginisim"))
+    invsimpsonrow <- c("Inverse Simpson index", "Equality", "Categorical", "1", "inf", simpson(v, type = "invsim"))
 
-    shannonrowlog2 <- c("Shannon index (log2)", "Equality", "nominal", "0", "log2(k)", shannon(v))
-    shannonrowln <- c("Shannon index (ln)", "Equality", "nominal", "0", "ln(k)", shannon(v, log = 'ln'))
-    shannonrowlog10 <- c("Shannon index (log10)", "Equality", "nominal", "0", "log10(k)", shannon(v, log = 'log10'))
-    ge_ent_neg1_row <- c("Generalized entropy index (alpha = -1)", "Inequality", "nominal", "0", "inf", gei(v, -1))
-    ge_ent_0_row <- c("Gener. entr. index - mean log deviation (alpha = 0)", "Inequality", "nominal", "0", "inf", gei(v, 0))
-    ge_ent_1_row <- c("Gener. entr. index - Theil index (alpha = 1)", "Inequality", "nominal", "0", "inf", gei(v, 1))
-    ge_ent_2_row <- c("Gener. entr. index (alpha = 2)", "Inequality", "nominal", "0", "inf", gei(v, 2))
+    shannonrowlog2 <- c("Shannon index (log2)", "Equality", "Categorical", "0", "log2(k)", shannon(v))
+    shannonrowln <- c("Shannon index (ln)", "Equality", "Categorical", "0", "ln(k)", shannon(v, log = 'ln'))
+    shannonrowlog10 <- c("Shannon index (log10)", "Equality", "Categorical", "0", "log10(k)", shannon(v, log = 'log10'))
+    ge_ent_neg1_row <- c("Generalized entropy index (alpha = -1)", "Inequality", "Metric", "0", "inf", gei(v, -1))
+    ge_ent_0_row <- c("Gener. entr. index - mean log deviation (alpha = 0)", "Inequality", "Metric", "0", "inf", gei(v, 0))
+    ge_ent_1_row <- c("Gener. entr. index - Theil index (alpha = 1)", "Inequality", "Metric", "0", "inf", gei(v, 1))
+    ge_ent_2_row <- c("Gener. entr. index (alpha = 2)", "Inequality", "Metric", "0", "inf", gei(v, 2))
 
-    atk_0_row <- c("Atkinson index (epsilon = 0)", "Inequality", "ordinal", "0", "1", myatkinson(v, 0))
-    atk_1_row <- c("Atkinson index (epsilon = 1)", "Inequality", "ordinal", "0", "1", myatkinson(v, 1))
-    atk_2_row <- c("Atkinson index (epsilon = 2)", "Inequality", "ordinal", "0", "1", myatkinson(v, 2))
+    atk_0_row <- c("Atkinson index (epsilon = 0)", "Inequality", "Metric", "0", "1", myatkinson(v, 0))
+    atk_1_row <- c("Atkinson index (epsilon = 1)", "Inequality", "Metric", "0", "1", myatkinson(v, 1))
+    atk_2_row <- c("Atkinson index (epsilon = 2)", "Inequality", "Metric", "0", "1", myatkinson(v, 2))
 
-    palmarow <- c("Palma ratio", "Inequality", "ordinal", "1/4", "inf", palma(v))
-    quintilerow <- c("S80-S20 ratio", "Inequality", "ordinal", "1", "inf", quintile(v))
-    decilerow <- c("P90-P10 ratio", "Inequality", "ordinal", "1", "inf", decile(v))
-    tenfiftyrow <- c("P50-P10 ratio", "Inequality", "ordinal", "1", "inf", tenfifty(v))
+    palmarow <- c("Palma ratio", "Inequality", "Metric", "1/4", "inf", palma(v))
+    quintilerow <- c("S80-S20 ratio", "Inequality", "Metric", "1", "inf", quintile(v))
+    decilerow <- c("P90-P10 ratio", "Inequality", "Metric", "1", "inf", decile(v))
+    tenfiftyrow <- c("P50-P10 ratio", "Inequality", "Metric", "1", "inf", tenfifty(v))
     
     
     table <- rbind(ginirow, corrginirow, hooverrow, corrhooverrow, rosenrow, 
@@ -190,7 +212,7 @@ indextable <-
     table[,6] <- as.numeric(table[,6])
     table[,6] <- round(table[,6], rdigit)
     table <- as.data.table(table)
-    names(table) <- c("Name of Index/Ratio", "Polarity", "Scale type of component", 
+    names(table) <- c("Name of Index/Ratio", "Polarity", "Admissible scale levels", 
                       "Lower limit", "Upper Limit", "Index/Ratio value")
     
     return(table)

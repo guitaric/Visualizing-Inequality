@@ -4,7 +4,9 @@ shannon <-
   function(vec, log = 'log2'){
     if(length(vec)==0) stop("empty vector")               #exception no value in vector
     if(sum(vec)==0) stop("no values")
-    
+    # if(any(vec)==0) stop("NaN")
+    vec <- vec[ vec != 0 ]
+
     if(log == 'log2'){
       pi <- vec/sum(vec)
       lpi <- log2(pi)
@@ -53,8 +55,8 @@ shannondat <-
     
     back <-  back[number != 0]
     
-    colnames(back) <- c("Letter", "Number of occurence", "Share of Occurence 'pi'",
-                        "Logarithm of Share 'l(pi)'", "Negative Product of Share and log '-(pi*l(pi))'")
+    colnames(back) <- c("Letter", "Absolute frequency", "Relative frequency",
+                        "Logarithm of relative frequency", "Minus relative frequency times its logarithm")
     
     return(back)
   }

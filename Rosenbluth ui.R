@@ -9,17 +9,19 @@ rosenbluthpage <-
                        style = "height: 760px;",
                        div(class = "metric_header", "Rosenbluth Index"),
                        div(class = "metric_text", 
-                           p("The Rosenbluth index is mainly used to calculate how strongly a market is dominated by a monopoly (Fedderke & Szalontai, 2009; Rosenbluth, 1955). Equivalently to the calculation of the Lorenz curve and the Gini index, the components are sorted and listed in a diagram, but in descending order for this measure, so that the first entry contains the highest component share. In contrast to the x-axis of the Lorenz curve, where the limit is 1 or 100%, the x-axis of this concentration curve is as long as the total number of components. For instance, if five components are considered, the x-axis would reach the value 5, which gives a total area of 1*5 = 5 for the total area of the diagram."),
-                           p("To calculate the Rosenbluth index, 1 is divided by twice the area above the concentration curve. In case of total equality, the area above the curve would be identical to the triangle above the line of equality. If the area is doubled, the index would be 1/k with k as the number of components. In case of total inequality, the curve would steeply rise from (0,0) to (1,1) and continue horizontally to the rightmost point possible (k, 1). The resulting area above the concentration curve would consist of a triangle with the points (0,0; 0,1; 1,1) with an area of 0.5 leading the index to result in 1.")
+                           p("The Rosenbluth index (Rosenbluth, 1955) draws on the rank order of components and compares each component\u0027s unit share to the probability that two units belong to the same component (Coulter, 1989). It is a measure of absolute inequality (i.e., the number of components, k, defines its lower bound)."),
+                           p("Because of its rank-order definition, the Rosenbluth index can be plotted in a diagram similar to the Lorenz curve. However, the components are sorted in descending order (not, as otherwise customary, in ascending order), so that the first entry in the diagram contains the highest (not the smallest) unit share. Also, the x-axis of the Rosenbluth index diagram does not cover the cumulative component shares in percent (1% to 100%), but rather the component numbers (1 to k) instead. For five components, the x-axis would range from 1 to 5, and the total area of the diagram would equal 5\u002A1 = 5. The diagonal in this rectangle again indicates the line of equality."),
+                           p("Like the Gini index, the Rosenbluth index is an area measure. It is the reciprocal value of twice the area (A; red area in the rightmost diagram) above the concentration curve, R = 1/(2A). Thus, the Rosenbluth index can also be expressed in terms of the uncorrected Gini index (Marfels, 1971)."),
+                           p("In the case of maximum equality, the curve coincides with the line of equality, and the area above the curve is identical to the right-angled triangle above the line of equality. The lower bound of the Rosenbluth index is thus 1/[2\u002A(k/2)] = 1/k. In the case of maximum inequality, the curve rises immediately steeply from (0, 0) to (1, 1), and then runs horizontally to the rightmost point (k, 1). The resulting (minimum) area above the concentration curve is then defined by a right-angled triangle having the corner points (0, 0), (0, 1), and (1, 1), thus spanning a total area of (1\u002A1)/2 = 0.5, in which case the Rosenbluth index yields a value of 1/(2\u002A0.5) = 1.")
                        ),
+                       
                            br(),
                            hr(),
                            br(),
                        div(class = "instructions",
-                           p("Imagine a market where five companies participate. Set the revenue of these companies and see 
-                             what area is coloured in the diagram to compute the Rosenbluth index."),
-                           p("Create a situation, in which one company represents a monopole or situation, 
-                             in which all five companies receive equal shares in the revenue."),
+                           p("On the right side you can move five sliders to learn about the construction of the Rosenbluth diagram and the calculation of the Rosenbluth index. The sliders represent the units (e.g., scale or test scores, reaction times in ms, or counts of the variable values of a categorical variable) of five different components (e.g., individual persons or the variable values of a categorical variable)."),
+                           p("See what area is coloured in the rightmost diagram to compute the Rosenbluth index."),
+                           p("Create a situation, in which one component has all units or in which all five components have equal numbers of units."),
                            br(),
                            br()
                        )
@@ -28,12 +30,12 @@ rosenbluthpage <-
       column(width = 1),
       column(width = 4,
              wellPanel(class = "bw",
-                       div(class = "inter_header", "Set the revenue"),
-                       sliderInput("ros1", "Revenue of Company A (in Billion)", min = 0, max = 10, step = 0.5, value = 10),
-                       sliderInput("ros2", "Revenue of Company B (in Billion)", min = 0, max = 10, step = 0.5, value = 10),
-                       sliderInput("ros3", "Revenue of Company C (in Billion)", min = 0, max = 10, step = 0.5, value = 1),
-                       sliderInput("ros4", "Revenue of Company D (in Billion)", min = 0, max = 10, step = 0.5, value = 0),
-                       sliderInput("ros5", "Revenue of Company E (in Billion)", min = 0, max = 10, step = 0.5, value = 0)
+                       # div(class = "inter_header", "Set the revenue"),
+                       sliderInput("ros1", "First Component's Units", min = 0, max = 1000, step = 10, value = 400),
+                       sliderInput("ros2", "Second Component's Units", min = 0, max = 1000, step = 10, value = 200),
+                       sliderInput("ros3", "Third Component's Units", min = 0, max = 1000, step = 10, value = 100),
+                       sliderInput("ros4", "Fourth Component's Units", min = 0, max = 1000, step = 10, value = 50),
+                       sliderInput("ros5", "Fifth Component's Units", min = 0, max = 1000, step = 10, value = 0)
              ),
              wellPanel(class = "bw",
                        fluidRow(

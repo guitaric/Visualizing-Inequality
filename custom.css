@@ -7,6 +7,9 @@
       background-color: #000000;
   }
 
+body {
+  font-size: 18px;
+}
 
 /*slider colors------------------------------------------*/
     
@@ -103,7 +106,11 @@
   
   
   p {
-      margin-bottom: 0px;
+      margin-bottom: 1em;
+  }
+  
+  li {
+      margin-bottom: 1em;
   }
   
   /*general text of indices*/
@@ -141,7 +148,7 @@
   
    /*tab titles*/
   .tabbable a {
-      font-size: 14px;
+      font-size: 18px;
       color:black;
   }
   
@@ -153,11 +160,13 @@
   }
   
   .intro_ul ul {
-      font-size: 18px;
+      font-size: 20px;
+      padding-left: 20px;
   }
   
   .intro_ul ul li {
-    font-size: 14px;
+    font-size: 18px;
+    list-style-type: none;
   }
   
   #included {
@@ -166,29 +175,33 @@
     padding-left: 20px;
   }
   /*sidebar*/
-  li {
+  .sidebar-menu li {
       font-size: 20px;
       line-height: 2;
   }
   
   
   
-  .tab-content li {
+  .sidebar-menu .tab-content li {
       font-size: 18px;
       line-height: 2;
   }
   
   
-  .tab-4979-1 {
+  .sidebar-menu .tab-4979-1 {
       font-size: 16px;
       line-height: 1.8;  
+  }
+  
+  .sidebar-menu .treeview-menu > li > a {
+    font-size: 18px;
   }
   
   
   /* Calc page*/
   
   .calc_header{
-      font-size: 18px;
+      font-size: 22px;
       font-weight: bold;
       text-decoration: underline;
   }
@@ -205,6 +218,10 @@
       overflow-y: scroll;
       overflow-x: scroll;
 
+  }
+  
+  h5 {
+    font-size: 18px;
   }
   
   /*alpha and epsilon in metrics */
@@ -224,10 +241,7 @@
   }
   
   
-  #atknum {
-      padding-left: 0px;
-      padding-right: 80px;
-  }
+
   
  #hhi_index, #ros_index, #own_ratio, #atk_index, #gei_index {
    padding-left: 15px;
@@ -245,6 +259,12 @@
   }
   references p{
       margin-bottom:5px;
+  }
+  
+  footer {
+    font-size: 18px;
+    position: absolute;
+    bottom: 0.5em;
   }
   
   

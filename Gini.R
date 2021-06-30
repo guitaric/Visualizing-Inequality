@@ -59,6 +59,7 @@ underlorenz2 <-
 gini <- 
   
   function(vec, corr = F){
+    if(length(vec)<2) stop("more than one value needed")         #exception no value in vector
     total = (0.5 - (underlorenz(vec)))/0.5
     if(corr == T) total = total*(length(vec)/(length(vec)-1))
     return(round(total, 5))
@@ -77,7 +78,7 @@ gggini1 <-
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Units in %") +
       theme_minimal() 
   }
 
@@ -96,7 +97,7 @@ gggini2 <-
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Units in %") +
       theme_minimal()
   }
 
@@ -118,7 +119,7 @@ gggini3 <-
       coord_cartesian(xlim =c(0, 100), ylim = c(0, 100)) +
       scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
       scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Income in %") +
+      labs(x = "Cumulated Component Share in %", y = "Cumulated Share of Total Units in %") +
       theme_minimal()
   }
 

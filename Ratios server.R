@@ -1,11 +1,11 @@
 observeEvent(input$top,
-             if((input$top + input$bottom) > 100){
+             if((input$top + input$bottom) > 100 && input$top > 0 && input$top <= 50 && is.numeric(input$top) ){
                updateNumericInput(session, "bottom", value = 100 - input$top)
              }
 )
 
 observeEvent(input$bottom,
-             if((input$bottom + input$top) > 100){
+             if((input$bottom + input$top) > 100 && input$bottom > 0 && input$bottom <= 99 && is.numeric(input$bottom)) {
                updateNumericInput(session, "top", value = 100 - input$bottom)
              }
 )

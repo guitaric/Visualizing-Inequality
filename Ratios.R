@@ -5,11 +5,11 @@ ownratio <-
     if(any(v<0)) stop("negative value")
     vecsort <- sort(v)
     richstart <- 100-rich
-    print(richstart)
+    # print(richstart)
     sumpoor <- sum(vecsort[1:(length(vecsort)*poor/100)])
     sumrich <- sum(vecsort[(length(vecsort)*(richstart/100)+1):length(vecsort)])
-    print(sumrich)
-    print(sumpoor)
+    # print(sumrich)
+    # print(sumpoor)
     return(round((sumrich/sumpoor), digits = 5))
   }
 
@@ -127,8 +127,8 @@ pratio <-
       lo <- df$amount[min(which(df$ratio == "P50:P10 Ratio" & df$cumsharecomp > 10))]
     }
     
-    print(hi)
-    print(lo)
+    # print(hi)
+    # print(lo)
     return(hi/lo)
     
   }
@@ -144,7 +144,7 @@ p90p10 <-
 p50p10 <- 
   
   function(x){
-    pratio(x, "950p10")
+    pratio(x, "p50p10")
   }
 
 #----------------------------------ggplot Ratios
