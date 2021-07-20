@@ -16,7 +16,7 @@ library(Hmisc)
 library(Cairo)
 
 library(DescTools)
-library(REAT)
+library(REAT) #this package was removed from CRAN, please download the latest version 3.0.2
 library(vegan)
 library(IC2)
 options(shiny.usecairo=T)   #better looking of plots

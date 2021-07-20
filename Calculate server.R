@@ -295,7 +295,9 @@ output$downtable <- downloadHandler(
   },
 
   content = function(file) {
-    write.csv(indextable(data()[,input$col_choice], 4), row.names = F, quote = F, file)
+    print(input$rdigit)
+    # write.csv(indextable(data()[,input$col_choice], 4), row.names = F, quote = F, file)
+    write.csv(indextable(calc_vec(), input$rdigit), row.names = F, quote = F, file)
 
   }
 )
